@@ -42,7 +42,7 @@ El formulari de proves utlitza les etiquetes `select` i `option` per generar els
 Generació dels enllaços per crear tiquets
 -----------------------------------------
 
-Per generar els enllaços per creat tiquets hi han dues opcions: `<form/>` o `<a/>`; les dues opcions portan al mateix resultat final, però cadascuna té els seus pros i contras.
+Per generar els enllaços per creat tiquets hi han dues opcions: `<form/>` o `<a/>`; les dues opcions porten al mateix resultat final, però cadascuna té els seus pros i contres.
 
 **Enllaç**
 
@@ -119,15 +119,11 @@ El codi següent es un formulari que permet fer proves i generar url's valides::
 
 
 		<!-- TEST MODE: no fa l'alta, només fa una validació parcial de la petició -->
+        Mode proves (no crea el tiquet):
 		<input type="checkbox" name="test" value="1"/>
 		<!-- FI TEST MODE -->
 		<!-- boto per enviar -->
-		<input type="submit" value="Envia">
-		<!-- imatge que envia -->		
-		<script type="text/javascript">
-		$("#servei1imatge").click(function(){$("#servei1form").submit()})
-		</script>
-		<input id="servei1imatge" type="image" onclick="servei1form.submit()" src="http://seuelectronica.upc.edu/perfil-de-contractant/imatges/imatge-per-a-contacte"/>
+		<input type="submit" value="Envia">		
 	</form>
 
 Formulari amb els camps ocults per a ús d'usuari final::
@@ -172,6 +168,10 @@ Formulari amb els camps ocults per a proves::
 		</script>
 		<input id="servei3imatge" type="image" onclick="servei1form.submit()" src="http://seuelectronica.upc.edu/perfil-de-contractant/imatges/imatge-per-a-contacte"/>
 	</form>
+
+**Com funciona la imatge**
+
+.. TODO
 
 
 Proves: URI's incorrectes
