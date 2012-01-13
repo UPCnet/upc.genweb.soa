@@ -118,4 +118,4 @@ class AltaTiquetView(BrowserView):
             self._redirect()
             return
         else:
-            return self.missatge()
+            return missatge
