@@ -58,22 +58,23 @@ class AltaTiquetView(BrowserView):
 	def _error(self, missatge):
 		"""Acaba la petició redireccionant i mostrant un missatge d'error"""
 		self.context.plone_utils.addPortalMessage(missatge, 'error')
-		self._redirect(missatge)
+		self._redirect()
 		#TODO exit?
-		
-	def alta(self):
-		import ipdb; ipdb.set_trace()
+	
+	#TODO potser seria millor cridar a l'alta a l'init
+	# i amb aquest metode només obtenir el resultat
+	def alta(self):		
 		gn6_prop =  GN6_Properties(self.context)
 		p = gn6_prop.get_all()
 		# Obtenim l'usuari i comprovem l'usuari
 		user = self._get_user()		
 		if user is None:
-			self.error(_('Permissos insuficients'))
+			self._error(_('Permissos insuficients'))
 			return
 		
 		# Comprovem que el GW estigui configurat per treballar amb el GN6
 		if p['gn6_user'] == '':
-			self.error(_("No s'ha configurat el Gestor de Serveis"))
+			self._error(_("No s'ha configurat el Gestor de Serveis"))
 			return
 		
 		g = GN6_GestioTiquets(p['gn6_user'], p['gn6_password'], p['gn6_domain'], p['bussoa_user'], p['bussoa_password'])
@@ -100,10 +101,17 @@ class AltaTiquetView(BrowserView):
 		
 		# Processem el retorn
 		response = self.request.response
+		missatge = '';
+		tipus = 'info'
 		if g.resultat_ok():
-			missatge = _("S'ha creat un tiquet amb identificador ${codi}",mapping={'codi': t.codiTiquet})
-			self.context.plone_utils.addPortalMessage(missatge, 'info')
-		else:			
-			self.context.plone_utils.addPortalMessage(g.ultim_error(), 'error')			
-		self._redirect()
-		return
+			missatge = _("S'ha creat un tiquet amb identificador ${codi}",mapping={'codi': t.codiTiquet})			
+		else:
+			tipus = 'error'
+			missatge = 	g.ultim_error()
+			
+		if not 'test' in f:
+			self.context.plone_utils.addPortalMessage(missatge, tipus)
+			self._redirect()
+			return
+		else:
+			return self.missatge()			

@@ -14,10 +14,10 @@
 		<metal:main fill-slot="main">
 		    <tal:main-macro metal:define-macro="main">
 		
-				<h1 class="documentFirstHeading">Notificació de creació de tiquet</h1>
-				<div tal:replace="structure provider:plone.abovecontenttitle" />				
+				<h1 class="documentFirstHeading">Petició de creació de tiquet al Gestor de Servis</h1>
+				<span tal:replace="structure provider:plone.abovecontenttitle" />		
 				<!-- TODO resultat de l'alta -->
-				<span tal:content="view/alta"></span>
+				Resultat: <span tal:content="view/alta"></span>
 		        
 			</tal:main-macro>
 		</metal:main>
