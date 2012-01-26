@@ -47,11 +47,15 @@ class AltaTiquetView(BrowserView):
         return portal.absolute_url()
 
     def _redirect(self):
-        """ Redirecciona a la pàgina d'on venia l'usuari o a la pàgina
-         principal si el valor no està definit (HTTP_REFERER)"""
-        redirect = self.request.get('HTTP_REFERER')
-        if redirect is None or redirect == '':
-            redirect = self._get_portal_url()
+        """ Redirecciona a la pàgina d'on venia l'usuari, o la pàgina anterior
+        al formulari o a la pàgina principal si el camp HTTP_REFERER"""
+        #TODO provar
+        if 'redirect' in self.request.form:
+            redirect = self.request.form['redirect']
+        else:
+            redirect = self.request.get('HTTP_REFERER')
+            if redirect is None or redirect == '':
+                redirect = self._get_portal_url()
         # Redirecció
         self.request.response.redirect(redirect)
 

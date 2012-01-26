@@ -57,15 +57,26 @@ class GN6_GestioTiquets():
                         'rin': 'PROCES_RIN',
                         'pti': 'PROCES_PTI',
                         'ads': 'PROCES_ADS',
-                        'adm': 'PROCES_ADM'}
+                        'adm': 'PROCES_ADM',
+                        'dso': 'PROCES_DSO',
+                        'fcl': 'PROCES_FCL',
+                        'aid': 'PROCES_AID',
+                        'apv': 'PROCES_APV'}
+
+    _dic_processos_origen = {'aus': 'PROCES_AUS',
+                        'ads': 'PROCES_ADS',
+                        'aid': 'PROCES_AID',
+                        'apv': 'PROCES_APV'
+                        }
     # Estat
-    _dic_estats = {'obert': 'TIQUET_STATUS_OBERT', 'pendent': 'TIQUET_STATUS_PEND'
-                        , 'tancat':'TIQUET_STATUS_TANCAT'}
+    _dic_estats = {'obert': 'TIQUET_STATUS_OBERT',
+                    'pendent': 'TIQUET_STATUS_PEND',
+                    'tancat': 'TIQUET_STATUS_TANCAT'}
     # Impacte
-    _dic_impacte = {'baix':'II_BAIX', 'alt': 'II_ALT'}
+    _dic_impacte = {'baix': 'II_BAIX', 'alt': 'II_ALT'}
 
     # Si/no: transformació dels valors sí/no als valors del servei SOA
-    _dic_sino = {'sí': 'S', 'si':'S', 's':'S', 'n': 'N', 'no':'N'}
+    _dic_sino = {'sí': 'S', 'si': 'S', 's': 'S', 'n': 'N', 'no': 'N'}
 
     def _dic_translate(self, key, dic):
         if key in dic:
@@ -87,20 +98,23 @@ class GN6_GestioTiquets():
         # Gestor d'errors
         self.errors = GN6_Errors()
 
-        self.diccionaris = {'proces' : self._dic_processos, 'processos': self._dic_processos, 
-        'urgencia' : self._dic_gravetats, 'impacte': self._dic_impacte}
+        self.diccionaris = {'proces': self._dic_processos,
+                            'procesOrigen': self._dic_processos_origen,
+                            'urgencia': self._dic_gravetats,
+                            'impacte': self._dic_impacte}
 
     def alta_tiquet(self, params):
-        """Crea un tiquet al gestor"""  
+        """Crea un tiquet al gestor"""
         self.last_result = None
-        self.last_error = None  
+        self.last_error = None
         # Obtenim els parametres de la petició
         check = self.alta_params()
+
         # Definim els parametres obligatoris
-        obligatoris = ['solicitant', 'assumpte']        
+        obligatoris = ['solicitant', 'assumpte']
         data = {}
-        # Recuperem els valors per la petició del diccionari que rebem com 
-        # parametre     
+        # Recuperem els valors per la petició del diccionari que rebem com
+        #  parametre
         for a in check:
             if a in params and params[a] != '':
                 data[a] = params[a]
@@ -117,7 +131,7 @@ class GN6_GestioTiquets():
         for i in data:
             #TODO debug error per clau == ''
             if i in self.diccionaris:
-                if data[i] is not None and data[i] is not '':                   
+                if data[i] is not None and data[i] is not '':
                     if data[i] not in self.diccionaris[i]:
                         #TODO logger?
                         self.last_error = self.errors.BAD_REQUEST
@@ -132,23 +146,27 @@ class GN6_GestioTiquets():
         data['domini'] = self.domain
         #TODO fixar l'identificador del client
         data['client'] = ''
-        # Crida al servei SOA       
+        # Crida al servei SOA
         if not self.test:
             self.last_result = self.client.service.AltaTiquet(**data)
+            print self.client.last_sent().plain()
         else:
             self.last_error = self.errors.TEST_OK
 
         return self.last_result
 
     def alta_params(self):
-        return ['solicitant','assumpte', 'descripcio', 'equipResolutor','assignatA', 'producte', 'urgencia', 'impacte','proces', 'procesOrigen', 'estat', 'ip', 'enviarMissatgeCreacio', 'enviarMissatgeTancament', 'infraestructura']
+        return ['solicitant', 'assumpte', 'descripcio', 'equipResolutor',
+                'assignatA', 'producte',    'urgencia', 'impacte', 'proces',
+                 'procesOrigen', 'estat', 'ip', 'enviarMissatgeCreacio',
+                 'enviarMissatgeTancament', 'infraestructura']
 
     def resultat_ok(self):
         """Retorna si la darrera petició ha acabat correctament"""
         return self.last_result != None and self.last_result.codiRetorn == "1"
 
     def ultim_error(self):
-        # Comprobem la darrera petició si s'ha cridad correctament      
+        # Comprobem la darrera petició si s'ha cridad correctament
         if self.last_result is not None:
             if self.last_result.codiRetorn != "1":
                 return self.errors.getDescription(self.last_result.codiRetorn)
@@ -158,5 +176,6 @@ class GN6_GestioTiquets():
         return None
 
     def mode_test(self):
-        """Activa el mode test, no es fan les peticions al servei SOA, només es validen"""
+        """Activa el mode test, no es fan les peticions al servei SOA,
+         només es validen"""
         self.test = True

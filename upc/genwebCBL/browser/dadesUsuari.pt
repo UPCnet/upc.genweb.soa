@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xml:lang="en" lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="upc.genwebCBL">
+
+    <body>
+
+        <metal:block metal:fill-slot="top_slot"
+                     tal:define="dummy python:request.set('disable_border', 1)" />
+
+        <metal:main fill-slot="main">
+            <tal:main-macro metal:define-macro="main">
+
+                <h1 class="documentFirstHeading" tal:content="view/get_servei">[Servei]</h1>
+                <h2  tal:content="view/get_subservei">[Subservei]</h2>
+                <span tal:replace="structure provider:plone.abovecontenttitle" />
+
+                <form method="get" action="gn6-alta-tiquet">
+                    <label>Assumpte</label>
+                    <input type="text" name="assumpte" maxlength="80" size="80"/><br/>
+                    <label>Descripció</label><br/>
+                    <textarea name="descripcio"></textarea>
+                    <input type="hidden" name="redirect" tal:attributes="value view/get_redirect_url"/>
+                    <input type="hidden" name="producte" tal:attributes="value view/get_codi_servei"/>
+                    <input type="hidden" name="subservei" tal:attributes="value view/get_codi_subservei"/>
+                    <input type="submit" value="Envia"/>
+                </form>
+
+            </tal:main-macro>
+        </metal:main>
+
+    </body>
+</html>

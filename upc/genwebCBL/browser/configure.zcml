@@ -8,6 +8,12 @@
 	    name="gn6-alta-tiquet"
 	    class=".altaTiquet.AltaTiquetView"
 	    permission="zope2.View"
-   />    
+   />
+   <browser:page
+      for="*"
+        name="gn6-recollir-dades"
+        class=".dadesUsuari.DadesUsuariView"
+        permission="zope2.View"
+   />
 
 </configure>
