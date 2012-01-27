@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xml:lang="en" lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="upc.genwebCBL">
+
+    <body>
+
+        <metal:block metal:fill-slot="top_slot"
+                     tal:define="dummy python:request.set('disable_border', 1)" />
+
+        <metal:main fill-slot="main">
+            <tal:main-macro metal:define-macro="main">
+
+                <h1 class="documentFirstHeading">Genweb GN6</h1>
+                <h2>Constructor d'enllaços pel formulari de petició d'informació</h2 >
+                <span tal:replace="structure provider:plone.abovecontenttitle" />
+                <p>Utilitza aquesta pàgina per generar els ellaços per crear tiquets al Gestor de Serveis demanant informació a l'usuari.</p>
+                <tal:bloc tal:condition="python: not view.has_data()" tal:define="camps view/get_params">
+                    <form method="get" action="gn6-helper-url-recollir" class="rowlike">
+
+                        <tal:camps tal:repeat="camp camps">
+                            <label class="horizontal" tal:content="python: view.get_pretty(camp)"/>
+                            <span class="required horizontal" style="color: red" title="Required"> ■ </span><br/>
+                            <input type="text" tal:attributes="name camp" class="text-widget textline-field"/><br/>
+                        </tal:camps>
+                        <div class="formControls">
+                            <input type="submit" value="Envia"/>
+                        </div>
+                    </form>
+                </tal:bloc>
+                <tal:bloc tal:condition="view/has_data">
+                    <p>Pots provar l'enllaç 
+                        <a tal:attributes="href view/get_url">aqui</a><br/><br/></p>
+                    <p>L'enllaç apunta a:<br/>
+                    <br/>
+                    <big><span tal:replace="view/get_url"/></big>
+                    <br/>
+                    <br/>
+                    </p>
+                    <p>Com a exemple el codi html del enllaç hauria de ser:</p>
+
+<pre>&lt;a
+    title="Text visible sobre l'enllaç"
+    href="<tal:repl tal:replace="view/get_url"/>"
+&gt;
+    Text visible del enllaç
+&lt;/a&gt;</pre>
+<form method="get" action="gn6-helper-url-recollir">
+<input type="submit" value="Fes un altre enllaç"/>
+</form>
+                </tal:bloc>
+
+            </tal:main-macro>
+        </metal:main>        
+
+    </body>
+</html>

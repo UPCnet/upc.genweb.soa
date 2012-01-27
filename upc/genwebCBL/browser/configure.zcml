@@ -9,11 +9,30 @@
 	    class=".altaTiquet.AltaTiquetView"
 	    permission="zope2.View"
    />
+   <!--
+       Atenció: aquestes dues declaracions son utilitzades dins de
+                dadesUsuari.py
+
+                Si es modifica el nom de la vista cal actualitzar el fitxer
+                dadesUsuari.py
+    -->
    <browser:page
       for="*"
         name="gn6-recollir-dades"
         class=".dadesUsuari.DadesUsuariView"
         permission="zope2.View"
    />
+   <!-- #TODO la següent página només hauria de ser visible pels
+        gestors
+    -->
+   <browser:page
+      for="*"
+        name="gn6-helper-url-recollir"
+        class=".dadesUsuari.HelperView"
+        permission="zope2.View"
+   />
+   <!--
+        fi
+    -->
 
 </configure>

@@ -18,10 +18,10 @@
                 <h2  tal:content="view/get_subservei">[Subservei]</h2>
                 <span tal:replace="structure provider:plone.abovecontenttitle" />
 
-                <form method="get" action="gn6-alta-tiquet">
-                    <label>Assumpte</label>
-                    <input type="text" name="assumpte" maxlength="80" size="80"/><br/>
-                    <label>Descripció</label><br/>
+                <form method="get" action="gn6-alta-tiquet" class="rowlike">
+                    <label class="horizontal">Assumpte</label> <span class="required horizontal" style="color: red" title="Required"> ■ </span><br/>
+                    <input type="text" name="assumpte" maxlength="80" size="80" class="text-widget textline-field"/><br/>
+                    <label>Descripció</label><span class="required horizontal" style="color: red" title="Required"> ■ </span><br/>
                     <textarea name="descripcio"></textarea>
                     <input type="hidden" name="redirect" tal:attributes="value view/get_redirect_url"/>
                     <input type="hidden" name="producte" tal:attributes="value view/get_codi_servei"/>
