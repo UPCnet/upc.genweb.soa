@@ -35,4 +35,12 @@
         fi
     -->
 
+    <!-- GuiaDocent -->
+    <browser:page
+      for="*"
+        name="guiadocent-obtenir-pdf"
+        class=".guiaDocent.ObtenirPDFView"
+        permission="zope2.View"
+   />
+
 </configure>

@@ -5,12 +5,9 @@ from suds.client import Client
 from Products.CMFPlone import PloneMessageFactory as _
 
 
-class GN6_Errors():
+class BUS_Errors():
 
-    # GN6 errors
     DEFAULT = 'default'
-    USER_NOT_FOUND = "-2"
-    WRONG_PERMISSION = "-3"
     # CUSTOM errors
     BAD_REQUEST = 400
     FORBIDEN = 403
@@ -19,12 +16,6 @@ class GN6_Errors():
     _descripcions = {
         BAD_REQUEST:
         _('La crida al Gestor de Serveis no es correcte'),
-        # El sol·licitant no existeix
-        USER_NOT_FOUND:
-        _("No s'ha trobat el teu usuari al Gestor de Serveis."),
-        # El sol·licitant no té rol de sol·licitant de tiquets en el domini
-        WRONG_PERMISSION:
-        _("No tens permissos per crear tiquets al Gestor de Serveis."),
         TEST_OK: _("TEST: finalitzat correctament"),
         DEFAULT:
         _('Hi ha hagut un problema inesperat amb la petició al Gestor')
@@ -39,13 +30,115 @@ class GN6_Errors():
             return self._descripcions[self.DEFAULT]
 
 
-class GN6_GestioTiquets():
+class GN6_Errors(BUS_Errors):
 
-    SERVEI = 'https://bus-soades.upc.edu/gN6/GestioTiquetsv1?wsdl'
+    # GN6 errors
+    USER_NOT_FOUND = "-2"
+    WRONG_PERMISSION = "-3"
+
+    def __init__(self):
+        self._descripcions.update({
+            # El sol·licitant no existeix
+            self.USER_NOT_FOUND:
+            _("No s'ha trobat el teu usuari al Gestor de Serveis."),
+            # El sol·licitant no té rol de sol·licitant de tiquets en el domini
+            self.WRONG_PERMISSION:
+            _("No tens permissos per crear tiquets al Gestor de Serveis.")
+            })
+
+
+class GuiaDocentPublica_Errors(BUS_Errors):
+
+    ERROR = "-1"
+
+    def __init__(self):
+        self._descripcions.update({
+            self.ERROR:
+            _("Hi ha hagut un error")
+            })
+
+
+class Bus_SOA_Client():
 
     last_result = None
     last_error = None
     test = False
+    CODE_OK = "1"
+
+    def __init__(self, bus_user, bus_pass, wsdl):
+        # Crear client SOA amb Securitiy activat
+        self.client = Client(wsdl)
+        security = Security()
+        token = UsernameToken(bus_user, bus_pass)
+        security.tokens.append(token)
+        self.client.set_options(wsse=security)
+
+    def mode_test(self):
+        """Activa el mode test, no es fan les peticions al servei SOA,
+         només es validen"""
+        self.test = True
+
+
+class GuiaDocentPublica(Bus_SOA_Client):
+
+    def __init__(self, bus_user, bus_pass, wsdl):
+        Bus_SOA_Client.__init__(self, bus_user, bus_pass, wsdl)
+        self.CODE_OK = 0
+
+    def obtenir_pdf_params(self):
+        return ['codi', 'curs', 'grup', 'idioma']
+
+    def resultat_ok(self):
+        """Retorna si la darrera petició ha acabat correctament"""
+        return self.last_result != None and self.last_result.error == self.CODE_OK
+
+    def ultim_error(self):
+        # Comprobem la darrera petició si s'ha cridad correctament
+        if self.last_result is not None:
+            if self.last_result.error != self.CODE_OK:
+                return self.last_result.missatge
+        # Comprobem si la darrera petició no s'ha arribat a cridar
+        elif self.last_error is not None:
+            return self.errors.getDescription(self.last_error)
+        return None
+
+    def obtenir_pdf(self, params):
+        self.last_result = None
+        self.last_error = None
+
+        check = self.obtenir_pdf_params()
+        data = {}
+        obligatoris = {}
+        # Recuperem els valors per la petició del diccionari que rebem com
+        #  parametre
+        for a in check:
+            if a in params and params[a] != '':
+                data[a] = params[a]
+            # Alguns paramtres son obligatoris
+            elif a in obligatoris:
+                #TODO logger?
+                self.last_error = self.errors.BAD_REQUEST
+                return None
+            else:
+                data[a] = ''
+
+        if data['codi'] != '':
+            data['codi'] = int(data['codi'])
+
+        if not self.test:
+            try:
+                self.last_result = self.client.service.obtenirPDF(data['codi'], data['curs'], data['grup'], data['idioma'])
+            except:
+                pass
+        else:
+            self.last_error = self.errors.TEST_OK
+
+        return self.last_result
+
+
+class GN6_GestioTiquets(Bus_SOA_Client):
+
+    SERVEI = 'https://bus-soades.upc.edu/gN6/GestioTiquetsv1?wsdl'
 
     # Diccionaris amb valors posibles
     # Gravetat del tiquet
@@ -101,7 +194,23 @@ class GN6_GestioTiquets():
         self.diccionaris = {'proces': self._dic_processos,
                             'procesOrigen': self._dic_processos_origen,
                             'urgencia': self._dic_gravetats,
-                            'impacte': self._dic_impacte}
+                            'impacte': self._dic_impacte,
+                            'enviarMissatgeCreacio': self._dic_sino,
+                            'enviarMissatgeTancament': self._dic_sino}
+
+    def resultat_ok(self):
+        """Retorna si la darrera petició ha acabat correctament"""
+        return self.last_result != None and self.last_result.codiRetorn == self.CODE_OK
+
+    def ultim_error(self):
+        # Comprobem la darrera petició si s'ha cridad correctament
+        if self.last_result is not None:
+            if self.last_result.codiRetorn != self.CODE_OK:
+                return self.errors.getDescription(self.last_result.codiRetorn)
+        # Comprobem si la darrera petició no s'ha arribat a cridar
+        elif self.last_error is not None:
+            return self.errors.getDescription(self.last_error)
+        return None
 
     def alta_tiquet(self, params):
         """Crea un tiquet al gestor"""
@@ -113,6 +222,22 @@ class GN6_GestioTiquets():
         # Definim els parametres obligatoris
         obligatoris = ['solicitant', 'assumpte']
         data = {}
+
+        # Traduir els valors d'entrada als valors que espera el servei SOA,
+        # per exemple baixa -> GRAVETAT_BAIXA
+        for i in params:
+            if i in self.diccionaris:
+                param = params[i]
+                if param is not None and param != '':
+                    param = param.lower()
+                    if param not in self.diccionaris[i]:
+                        #TODO logger?
+                        self.last_error = self.errors.BAD_REQUEST
+                        return None
+                    else:
+                        trans = self.diccionaris[i][param]
+                    params[i] = trans
+
         # Recuperem els valors per la petició del diccionari que rebem com
         #  parametre
         for a in check:
@@ -124,21 +249,7 @@ class GN6_GestioTiquets():
                 self.last_error = self.errors.BAD_REQUEST
                 return None
             else:
-                data[a] = None
-
-        # Traduir els valors d'entrada als valors que espera el servei SOA,
-        # per exemple baixa -> GRAVETAT_BAIXA
-        for i in data:
-            #TODO debug error per clau == ''
-            if i in self.diccionaris:
-                if data[i] is not None and data[i] is not '':
-                    if data[i] not in self.diccionaris[i]:
-                        #TODO logger?
-                        self.last_error = self.errors.BAD_REQUEST
-                        return None
-                    else:
-                        trans = self.diccionaris[i][data[i]]
-                    data[i] = trans
+                data[a] = ''
 
         # GN6 security
         data['username'] = self.usuari
@@ -146,6 +257,7 @@ class GN6_GestioTiquets():
         data['domini'] = self.domain
         #TODO fixar l'identificador del client
         data['client'] = ''
+        data['ip'] = ''
         # Crida al servei SOA
         if not self.test:
             self.last_result = self.client.service.AltaTiquet(**data)
@@ -160,22 +272,3 @@ class GN6_GestioTiquets():
                 'assignatA', 'producte',    'urgencia', 'impacte', 'proces',
                  'procesOrigen', 'estat', 'ip', 'enviarMissatgeCreacio',
                  'enviarMissatgeTancament', 'infraestructura']
-
-    def resultat_ok(self):
-        """Retorna si la darrera petició ha acabat correctament"""
-        return self.last_result != None and self.last_result.codiRetorn == "1"
-
-    def ultim_error(self):
-        # Comprobem la darrera petició si s'ha cridad correctament
-        if self.last_result is not None:
-            if self.last_result.codiRetorn != "1":
-                return self.errors.getDescription(self.last_result.codiRetorn)
-        # Comprobem si la darrera petició no s'ha arribat a cridar
-        elif self.last_error is not None:
-            return self.errors.getDescription(self.last_error)
-        return None
-
-    def mode_test(self):
-        """Activa el mode test, no es fan les peticions al servei SOA,
-         només es validen"""
-        self.test = True

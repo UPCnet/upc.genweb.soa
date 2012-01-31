@@ -1,17 +1,23 @@
 Introducció
 ============
 
+Que ofereix
+-----------
+
+La integració amb el Gestor de serveis integra la creació de tiquets des de el Genweb preomplint alguns camps per automàtizar el procés. Per crear els tiquets s'ofereixen dues opcions: una que permet a l'usuari editar el contingut d'algun dels camps del tiquet i l'altre que és completament transparent a l'usuari.
+
 
 Configuració
 ------------
 
 Quan s'instala el paquet per primer cop crea una configuració buida que s'ha d'omplir per poder connectar-se al `bus SOA` i al `Gestor de Serveis`, els paràmetres d'aquesta configuració són:
 
-:gn6_user: usuari del Gestor de serveis
-:gn6_password: contrasenya de l'usuari del Gestor de serveis
-:gn6_domain: domini del Gestor de serveis
-:bussoa_user: usuari del bus SOA
-:bussoa_password: contrasenya de l'usuari del bus SOA
+:gn6_user: usuari del Gestor de serveis.
+:gn6_password: contrasenya de l'usuari del Gestor de serveis.
+:gn6_domain: domini del Gestor de serveis.
+:bussoa_user: usuari del bus SOA.
+:bussoa_password: contrasenya de l'usuari del bus SOA.
+:wsdl_gestiotiquets: url al fitxer wsdl del gestor de tiquets.
 
 
 .. note::
@@ -26,6 +32,9 @@ Quan s'instala el paquet per primer cop crea una configuració buida que s'ha d'
 Demanar accés al BUS SOA
 ++++++++++++++++++++++++
 
+Les màquines que utilitzin aquest servei s'han de donar d'alta al contracte del servei web amb el Govern SOA.
+
+
 
 Filtratge HTML
 ++++++++++++++
@@ -37,6 +46,12 @@ Per poder afegir els enllaços utitlizan formularis cal permetre les etiquetes `
 
 El formulari de proves utlitza les etiquetes `select` i `option` per generar els desplegables.
 
+
+
+Demanar informació a l'usuari
+-----------------------------
+
+Una de les vistes del paquet permet generar enllaços que g
 
 
 Generació dels enllaços per crear tiquets
@@ -87,26 +102,30 @@ El codi següent es un formulari que permet fer proves i generar url's valides::
 
 	<form method="get" action="gn6-alta-tiquet" id="servei1form">
 	 	Assumpte <input name="assumpte" type="text" /><br />
-	 	Descripcio <input name="descripcio" type="text" /><br />
+	 	Descripcio <br/><textarea name="descripcio" type="text"><textarea/><br />
 	 	Resolutor <input name="equipResolutor" type="text" /> <br />
 	 	Assignat a<input name="assignatA" type="text" /> <br />
 	 	Producte<input name="producte" type="text" /> <br />
-		Urgencia <select name="urgencia">
+		Urgencia <select name="urgencia
+            <option value=""></option>
 			<option value="baixa">Baixa</option>
 			<option value="mitja">Mitja</option>
 			<option value="alta">Alta</option>
 		</select><br/>
 		Impacte <select name="impacte">
+            <option value=""></option>
 			<option value="baix">Baix</option>
 			<option value="alt">Alt</option>
 		</select><br/>
         Proces proces origen <select name="procesOrigen">
+            <option value=""></option>
             <option value="aus">AUS</option>
             <option value="ads">ADS</option>
             <option value="aid">AID</option>
             <option value="apv">APV</option>
         </select><br/>
 		Proces <select name="proces">
+            <option value=""></option>
             <option value="aus">AUS</option>
             <option value="rin">RIN</option>
             <option value="pti">PTI</option>

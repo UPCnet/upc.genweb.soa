@@ -10,14 +10,13 @@ class DadesUsuari():
 
 class DadesUsuariView(BrowserView):
 
-    template = ViewPageTemplateFile('dadesUsuari.pt')
     params = []
     dades = []
 
     def __init__(self, context, request):
         self.context = context
         self.request = request
-        self.dades = DadesUsuari().params
+        self.params = DadesUsuari().params
         self.dades = self.request.form
 
     def __call__(self):
@@ -25,14 +24,11 @@ class DadesUsuariView(BrowserView):
         for a in self.params:
             if a not in  self.dades:
                 self.context.plone_utils.addPortalMessage(
-                "Falten dades, contacta amb el gestor del genweb", 'error')
+                "Falten dades, contacta amb el gestor del web", 'error')
                 self.request.response.redirect(self.get_redirect_url())
                 return
-        mt = getToolByName(self.context, 'portal_membership')
-        if mt.isAnonymousUser():
-            #  the user has not logged in
-            return
-        return self.template()
+        template = ViewPageTemplateFile('dadesUsuari.pt')
+        return template()
 
     def _get_portal_url(self):
         """ Retorna l'adreça del portal """
