@@ -3,7 +3,7 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-    i18n_domain="upc.genwebCBL">
+    i18n_domain="upc.genweb.soa">
 
 
     <five:registerPackage package="." initialize=".initialize" />
@@ -12,8 +12,8 @@
 
     <genericsetup:registerProfile
 	  name="default"
-	  title="Genweb UPC CBL"
-	  description="GenWeb UPC CBL"
+	  title="Genweb UPC SOA"
+	  description="Serveis SOA per al Genweb"
 	  directory="profiles/default"
 	  provides="Products.GenericSetup.interfaces.EXTENSION"
 	  />

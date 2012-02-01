@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding='utf-8'?>
+<object name="portal_properties" meta_type="Plone Properties Tool">
+
+  <object name="soa_properties" meta_type="Plone Property Sheet">
+
+    <!-- Usuari del Bus SOA -->
+    <property name="bussoa_user" type="string" purge="False"></property>
+    <!-- Contrasenya del Bus SOA -->
+    <property name="bussoa_password" type="string" purge="False"></property>
+
+    <!-- Usuari del gestor de serveis (GN6) -->
+    <property name="gn6_user" type="string" purge="False"></property>
+    <!-- Contrasenya del gestor de serveis (GN6) -->
+    <property name="gn6_password" type="string" purge="False"></property>
+    <!-- Identificador del gestor de serveis (GN6) -->
+    <property name="gn6_domain" type="string" purge="False"></property>
+    <!-- Definició del servei GestióTiquets (WSDL) -->
+    <property name="wsdl_gestiotiquets" type="string" purge="False"></property>
+
+    <!-- Definició del servei GuiaDocentPublica (WSDL) -->
+    <property name="wsdl_guiadocentpublica" type="string" purge="False">Definició del servei GuiaDocentPublica (WSDL)</property>
+
+  </object>
+  
+</object>

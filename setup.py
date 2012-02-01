@@ -26,7 +26,7 @@ setup(name='upc.genwebCBL',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          # -*- Extra requirements: -*-
+          'suds'          
       ],
       entry_points="""
       # -*- Entry points: -*-

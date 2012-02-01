@@ -1,11 +1,12 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
-    i18n_domain="upc.genwebCBL">
+    i18n_domain="upc.genweb.soa">
 
    <browser:page
       for="*"
 	    name="gn6-alta-tiquet"
+        layer="upc.genwebCBL.interfaces.ISOALayer"
 	    class=".altaTiquet.AltaTiquetView"
 	    permission="zope2.View"
    />
@@ -19,6 +20,7 @@
    <browser:page
       for="*"
         name="gn6-recollir-dades"
+        layer="upc.genwebCBL.interfaces.ISOALayer"
         class=".dadesUsuari.DadesUsuariView"
         permission="zope2.View"
    />
@@ -28,6 +30,7 @@
    <browser:page
       for="*"
         name="gn6-helper-url-recollir"
+        layer="upc.genwebCBL.interfaces.ISOALayer"
         class=".dadesUsuari.HelperView"
         permission="zope2.View"
    />
@@ -39,6 +42,7 @@
     <browser:page
       for="*"
         name="guiadocent-obtenir-pdf"
+        layer="upc.genwebCBL.interfaces.ISOALayer"
         class=".guiaDocent.ObtenirPDFView"
         permission="zope2.View"
    />

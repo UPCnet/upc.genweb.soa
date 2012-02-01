@@ -260,8 +260,11 @@ class GN6_GestioTiquets(Bus_SOA_Client):
         data['ip'] = ''
         # Crida al servei SOA
         if not self.test:
-            self.last_result = self.client.service.AltaTiquet(**data)
-            print self.client.last_sent().plain()
+            try:
+                self.last_result = self.client.service.AltaTiquet(**data)
+            except:
+                self.last_error = self.errors.DEFAULT
+            #print self.client.last_sent().plain()
         else:
             self.last_error = self.errors.TEST_OK
 

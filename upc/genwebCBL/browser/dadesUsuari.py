@@ -28,7 +28,7 @@ class DadesUsuariView(BrowserView):
                 self.request.response.redirect(self.get_redirect_url())
                 return
         template = ViewPageTemplateFile('dadesUsuari.pt')
-        return template()
+        return template(self)
 
     def _get_portal_url(self):
         """ Retorna l'adreça del portal """

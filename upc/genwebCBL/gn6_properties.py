@@ -8,12 +8,12 @@ class BUS_properties():
 
     def __init__(self, site):
         self.properties = getToolByName(site,
-                                'portal_properties').site_properties
-        # Crear propietats per defecte si no existeixen
-        self._init_properties()
+                                'portal_properties').soa_properties
+        ## Crear propietats per defecte si no existeixen
+        #self._init_properties()
 
     def _init_properties(self):
-        """Creació de les propietats per defecte"""
+        """Creació de les propietats per defecte:"""
         properties = self.properties
         for a in self.expected_properties:
             if properties.hasProperty(a) == 0:

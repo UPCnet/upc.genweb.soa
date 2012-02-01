@@ -1,12 +1,6 @@
 Changelog
 =========
 
-1.1 (2011-11-25)
+1.0 (unreleased)
 ----------------
-- Només permetre a Managers accedir a les estadistiques
-- Fer servir un index del cataleg per obtenir la mida de manera òptima
-- GenwebUPC 4 ready.
-
-1.0 (2011-10-10)
--------------------
 - Initial release

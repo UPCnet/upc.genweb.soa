@@ -36,7 +36,7 @@ class SOABrowserView(BrowserView):
 
     def _get_portal_url(self):
         """ Retorna l'adreça del portal """
-        urltool = getToolByName(self.context, 'portal_url')
+        urltool = getToolByName(self.context, 'site_url')
         portal = urltool.getPortalObject()
         return portal.absolute_url()
 
