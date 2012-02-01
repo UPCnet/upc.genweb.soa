@@ -4,8 +4,8 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as _
 
-from upc.genwebCBL.gn6 import GN6_GestioTiquets
-from upc.genwebCBL.gn6_properties import GN6_Properties
+from upc.genweb.soa.gn6 import GN6_GestioTiquets
+from upc.genweb.soa.gn6_properties import GN6_Properties
 
 
 class AltaTiquetView(BrowserView):

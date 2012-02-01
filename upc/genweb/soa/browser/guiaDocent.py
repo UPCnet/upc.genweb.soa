@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from Products.CMFPlone import PloneMessageFactory as _
 
-from upc.genwebCBL.gn6 import GuiaDocentPublica
-from upc.genwebCBL.soaBrowserView import SOABrowserView
-from upc.genwebCBL.gn6_properties import GuiaDocentPublica_Properties
+from upc.genweb.soa.gn6 import GuiaDocentPublica
+from upc.genweb.soa.soaBrowserView import SOABrowserView
+from upc.genweb.soa.gn6_properties import GuiaDocentPublica_Properties
 
 
 class ObtenirPDFView(SOABrowserView):

@@ -4,7 +4,7 @@ import os
 
 version = '1.0'
 
-setup(name='upc.genwebCBL',
+setup(name='upc.genweb.soa',
       version=version,
       description="",
       long_description=open("README.txt").read() + "\n" +
@@ -18,15 +18,15 @@ setup(name='upc.genwebCBL',
       keywords='',
       author='UPCnet Plone Team',
       author_email='plone.team@upcnet.es',
-      url='https://github.com/upcnet/upcnet.stats',
+      url='https://github.com/upcnet/upcnet.genweb.soa',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
-      namespace_packages=['upc'],
+      namespace_packages=['upc','upc.genweb'],
       include_package_data=True,
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'suds'          
+          'suds'
       ],
       entry_points="""
       # -*- Entry points: -*-

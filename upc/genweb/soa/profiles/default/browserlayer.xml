@@ -1,6 +1,6 @@
 <layers>
  <layer
      name="SOALayer"
-     interface="upc.genwebCBL.interfaces.ISOALayer"
+     interface="upc.genweb.soa.interfaces.ISOALayer"
      />
 </layers>
