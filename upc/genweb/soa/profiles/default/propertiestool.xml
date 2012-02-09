@@ -18,7 +18,7 @@
     <property name="wsdl_gestiotiquets" type="string" purge="False"></property>
 
     <!-- Definició del servei GuiaDocentPublica (WSDL) -->
-    <property name="wsdl_guiadocentpublica" type="string" purge="False">Definició del servei GuiaDocentPublica (WSDL)</property>
+    <property name="wsdl_guiadocentpublica" type="string" purge="False"></property>
 
   </object>
   

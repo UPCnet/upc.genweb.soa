@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xml:lang="en" lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="upc.genweb.soa">
+
+    <body>
+
+        <metal:block metal:fill-slot="top_slot"
+                     tal:define="dummy python:request.set('disable_border', 1)" />
+
+        <metal:main fill-slot="main">
+            <tal:main-macro metal:define-macro="main">
+
+                <h1 class="documentFirstHeading">Genweb GN6</h1>
+                <h2>Enllaç d'alta al gestor de serveis</h2 >
+                <span tal:replace="structure provider:plone.abovecontenttitle" />
+
+                    <p>Pots provar l'enllaç 
+                        <a tal:attributes="href view/get_url" class="peticio-dades-soa">aqui</a><br/><br/></p>
+                    <p>L'enllaç apunta a:<br/>
+                    <br/>
+                    <big><span tal:replace="view/get_url"/></big>
+                    <br/>
+                    <br/>
+                    </p>
+                    <p>Com a exemple el codi html del enllaç hauria de ser:</p>
+
+<pre>&lt;a
+    title="Text visible sobre l'enllaç"
+    class="peticio-dades-soa"
+    href="<tal:repl tal:replace="view/get_url"/>"
+&gt;
+    Aquí pots escriure el text de l'enllaç o inserir una imatge
+&lt;/a&gt;</pre>
+<form method="get" action="gn6-helper-alta-form">
+<input type="submit" value="Fes un altre enllaç"/>
+</form>
+
+            </tal:main-macro>
+        </metal:main>
+
+    </body>
+</html>

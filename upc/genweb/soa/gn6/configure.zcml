@@ -3,6 +3,7 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="upc.genweb.soa">
 
+
    <browser:page
       for="*"
 	    name="gn6-alta-tiquet"
@@ -21,30 +22,27 @@
       for="*"
         name="gn6-recollir-dades"
         layer="upc.genweb.soa.interfaces.ISOALayer"
-        class=".dadesUsuari.DadesUsuariView"
+        class=".dadesUsuari.DadesAltaForm"
         permission="zope2.View"
    />
    <!-- #TODO la següent página només hauria de ser visible pels
         gestors
     -->
    <browser:page
-      for="*"
-        name="gn6-helper-url-recollir"
+        for="*"
+        name="gn6-helper-alta-form"
         layer="upc.genweb.soa.interfaces.ISOALayer"
-        class=".dadesUsuari.HelperView"
+        class=".helper.HelperAltaForm"
+        permission="zope2.View"
+   />
+   <browser:page
+        for="*"
+        name="gn6-helper-alta-view"
+        class=".helper.HelperAltaView"
         permission="zope2.View"
    />
    <!--
         fi
     -->
-
-    <!-- GuiaDocent -->
-    <browser:page
-      for="*"
-        name="guiadocent-obtenir-pdf"
-        layer="upc.genweb.soa.interfaces.ISOALayer"
-        class=".guiaDocent.ObtenirPDFView"
-        permission="zope2.View"
-   />
 
 </configure>

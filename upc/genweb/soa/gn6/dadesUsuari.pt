@@ -14,8 +14,6 @@
         <metal:main fill-slot="main">
             <tal:main-macro metal:define-macro="main">
 
-                <h1 class="documentFirstHeading" tal:content="view/get_servei">[Servei]</h1>
-                <h2  tal:content="view/get_subservei">[Subservei]</h2>
                 <span tal:replace="structure provider:plone.abovecontenttitle" />
 
                 <form method="get" action="gn6-alta-tiquet" class="rowlike">

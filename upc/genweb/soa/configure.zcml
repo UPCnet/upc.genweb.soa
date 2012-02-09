@@ -3,12 +3,24 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="upc.genweb.soa">
 
 
     <five:registerPackage package="." initialize=".initialize" />
 
-    <include package=".browser"/>
+
+    <include package="plone.z3cform" />
+
+    <include package=".gn6"/>
+    <include package=".guiadocent"/>
+
+    <!-- Resource directory for javascripts -->
+    <browser:resourceDirectory
+        name="upc.genweb.soa.javascripts"
+        directory="javascripts"
+        />
+
 
     <genericsetup:registerProfile
 	  name="default"
@@ -17,5 +29,5 @@
 	  directory="profiles/default"
 	  provides="Products.GenericSetup.interfaces.EXTENSION"
 	  />
-    
+
 </configure>
