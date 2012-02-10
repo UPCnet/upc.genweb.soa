@@ -1,33 +1,67 @@
 Introducció
 ============
 
+Aquest paquet ofereix l'integració de difernts dels serveis SOA al Genweb.
+
 Que ofereix
 -----------
 
-La integració amb el Gestor de serveis integra la creació de tiquets des de el Genweb preomplint alguns camps per automàtizar el procés. Per crear els tiquets s'ofereixen dues opcions: una que permet a l'usuari editar el contingut d'algun dels camps del tiquet i l'altre que és completament transparent a l'usuari.
+Gestor de serveis
++++++++++++++++++
+
+La integració amb el Gestor de serveis integra la creació de tiquets des de el Genweb preomplint alguns camps per automàtizar el procés. Per crear els tiquets s'ofereix:
+
+- Una vista per als editors, que facilita el procés de creació dels enllaços de creació predefinits
+- Un formulari per demanar camps a l'usuari abans de crear el tiquet
+- Una vista que crea un tiquet en funció dels paràmetres d'entrada
+
+
+Guia docent pública
++++++++++++++++++++
+
+La integració amb la Guia docent pública permet visualitzar les diferents guies docents amb el Genweb.
+
+Les guies es generen cridan a la la url relativa: **guiadocent-obtenir-pdf**, amb els paràmetres necessaris per a trobar la guia:
+
+    codi (obligatori): codi que identifica la unitat docent en qüestió
+    grup (obligatori): grup de la guia d'estudis
+    idioma (obligatori): valors posibles CA, ES, ENG
+    curs: any de la guia docent. Ex. 2009
+
+Exemples
+........
+
+:Exemple en català: guiadocent-obtenir-pdf?codi=14742&idioma=ca&grup=1
+:Exemple en castellà: guiadocent-obtenir-pdf?codi=14742&idioma=es&grup=1
+:Exemple en català i curs 2009: guiadocent-obtenir-pdf?codi=14742&idioma=ca&grup=1&curs=2009
 
 
 Configuració
 ------------
 
-Quan s'instala el paquet per primer cop crea una configuració buida que s'ha d'omplir per poder connectar-se al `bus SOA` i al `Gestor de Serveis`, els paràmetres d'aquesta configuració són:
+Quan s'instala el paquet per primer cop crea un full de propietats buit **soa_properties** que s'ha d'omplir per poder connectar-se al `bus SOA` i els diferents serveis, els paràmetres d'aquesta configuració basics són:
 
+:bussoa_user: usuari del bus SOA.
+:bussoa_password: contrasenya de l'usuari del bus SOA.
+
+.. note::
+
+    L'*usuari del bus SOA* s'ha de demanar al **Govern SOA** i ha d'autoritzar les màquines que s'hi connectin.
+
+Gestor de serveis
++++++++++++++++++
 :gn6_user: usuari del Gestor de serveis.
 :gn6_password: contrasenya de l'usuari del Gestor de serveis.
 :gn6_domain: domini del Gestor de serveis.
-:bussoa_user: usuari del bus SOA.
-:bussoa_password: contrasenya de l'usuari del bus SOA.
 :wsdl_gestiotiquets: url al fitxer wsdl del gestor de tiquets.
 
-
 .. note::
 
-	L'*usuari del gestor de serveis* s'ha de demanar a la persona que gestiona el **Gestor de serveis**.
+    L'*usuari del gestor de serveis* s'ha de demanar a la persona que gestiona el **Gestor de serveis**.
 
-.. note::
-
-	L'*usuari del bus SOA* s'ha de demanar al **Govern SOA** i ha d'autoritzar les màquines que s'hi connectin.
-
+Guia docent pública
++++++++++++++++++++
+:wsdl_guiadocent: url al fitxer wsdl de la guia docent pública.
 
 Demanar accés al BUS SOA
 ++++++++++++++++++++++++
@@ -35,14 +69,13 @@ Demanar accés al BUS SOA
 Les màquines que utilitzin aquest servei s'han de donar d'alta al contracte del servei web amb el Govern SOA.
 
 
-
 Filtratge HTML
 ++++++++++++++
-* Recomanat *
+**Ús avançat i proves**
 
 Per poder afegir els enllaços utitlizan formularis cal permetre les etiquetes `form` i `input` a la configuració del *Filtratge Html*.
 
-* Proves *
+**Proves**
 
 El formulari de proves utlitza les etiquetes `select` i `option` per generar els desplegables.
 
@@ -51,7 +84,7 @@ El formulari de proves utlitza les etiquetes `select` i `option` per generar els
 Demanar informació a l'usuari
 -----------------------------
 
-Una de les vistes del paquet permet generar enllaços que g
+Una de les vistes del paquet permet generar enllaços amb informació predefinida a l'hora de crear un nou tiquet.
 
 
 Generació dels enllaços per crear tiquets
@@ -136,13 +169,11 @@ El codi següent es un formulari que permet fer proves i generar url's valides::
 		</select><br/>
 
 
-		Enviar Creació<input name="enviarMissatgeCreacio" type="text" /> <br />Enviar Tancament<input name="enviarMissatgeTancament" type="text" /> <br />Infraestructura<input name="infraestructura" type="text" /> <br />
+		Enviar Creació<input name="enviarMissatgeCreacio" type="text" /> <br />
+        Enviar Tancament<input name="enviarMissatgeTancament" type="text" /> <br />
+        Infraestructura<input name="infraestructura" type="text" /> <br />
 
 
-		<!-- TEST MODE: no fa l'alta, només fa una validació parcial de la petició -->
-        Mode proves (no crea el tiquet):
-		<input type="checkbox" name="test" value="1"/>
-		<!-- FI TEST MODE -->
 		<!-- boto per enviar -->
 		<input type="submit" value="Envia">
 	</form>
@@ -163,9 +194,6 @@ Formulari amb els camps ocults per a ús d'usuari final::
 		<input name="enviarMissatgeTancament" type="hidden" value=""/>
 		<input name="infraestructura" type="hidden" value=""/>
 
-		<!-- TEST MODE: no fa l'alta, només fa una validació parcial de la petició -->
-		<input type="checkbox" name="test" value="1"/>
-		<!-- FI TEST MODE -->
 		<!-- boto per enviar -->
 		<input type="submit" value="Envia">
 		<!-- imatge que envia -->
@@ -189,25 +217,3 @@ Formulari amb els camps ocults per a proves::
 		</script>
 		<input id="servei3imatge" type="image" onclick="servei1form.submit()" src="http://seuelectronica.upc.edu/perfil-de-contractant/imatges/imatge-per-a-contacte"/>
 	</form>
-
-**Com funciona la imatge**
-
-.. TODO
-
-
-Proves: URI's incorrectes
--------------------------
-
-Les següents URI's han de redireccionar i mostrar un error al executar-se:
-
-#. Sense cap parametre::
-
-	http://localhost:8080/Plone/gn6-alta-tiquet
-
-#. Assumpte buit pero a la petició::
-
-	http://localhost:8080/Plone/gn6-alta-tiquet?assumpte=
-
-#. Proces incorrecte::
-
-	http://localhost:8080/Plone/gn6-alta-tiquet?assumpte=Prova&proces=MALO

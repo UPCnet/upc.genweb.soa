@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-from suds.wsse import UsernameToken
-from suds.wsse import Security
-from suds.client import Client
 from Products.CMFPlone import PloneMessageFactory as _
 from upc.genweb.soa.bus import BUS_Errors, BUS_properties, Bus_SOA_Client
 
@@ -77,19 +74,13 @@ class GN6_GestioTiquets(Bus_SOA_Client):
 
     def __init__(self, gn6_user, gn6_pass, gn6_domain, bus_user, bus_pass, wsdl):
         """Inciialització del client"""
+        Bus_SOA_Client.__init__(self, bus_user, bus_pass, wsdl)
+        # Gestor d'errors
+        self.errors = GN6_Errors()
         # Desar variables per fer servir més tard
         self.usuari = gn6_user
         self.password = gn6_pass
         self.domain = gn6_domain
-        #TODO revisar i utilitzar el __init__ del pare
-        # Crear client SOA amb Securitiy activat
-        self.client = Client(wsdl)
-        security = Security()
-        token = UsernameToken(bus_user, bus_pass)
-        security.tokens.append(token)
-        self.client.set_options(wsse=security)
-        # Gestor d'errors
-        self.errors = GN6_Errors()
 
         self.diccionaris = {'proces': self._dic_processos,
                             'procesOrigen': self._dic_processos_origen,

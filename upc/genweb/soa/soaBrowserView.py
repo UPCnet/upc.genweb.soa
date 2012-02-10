@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
-#from Products.CMFPlone import PloneMessageFactory as _
+from zope.component import getMultiAdapter
+from AccessControl import getSecurityManager
 
 
 class SOABrowserView(BrowserView):
@@ -36,7 +37,7 @@ class SOABrowserView(BrowserView):
 
     def _get_portal_url(self):
         """ Retorna l'adreça del portal """
-        urltool = getToolByName(self.context, 'site_url')
+        urltool = getToolByName(self.context, 'portal_url')
         portal = urltool.getPortalObject()
         return portal.absolute_url()
 
@@ -58,3 +59,15 @@ class SOABrowserView(BrowserView):
         self.context.plone_utils.addPortalMessage(missatge, 'error')
         self._redirect()
         #TODO exit?
+
+    def havePermissionAtRoot(self):
+        """Funcio que retorna si es Editor a l'arrel"""
+
+        pm = getToolByName(self, 'portal_membership')
+        tools = getMultiAdapter((self.context, self.request),
+                                    name=u'plone_tools')
+        proot = tools.url().getPortalObject()
+        sm = getSecurityManager()
+        user = pm.getAuthenticatedMember()
+
+        return sm.checkPermission('Modify portal content', proot) or ('WebMaster' in user.getRoles())

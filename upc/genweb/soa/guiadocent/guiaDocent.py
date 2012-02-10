@@ -29,6 +29,7 @@ class GuiaDocentPublica(Bus_SOA_Client):
 
     def __init__(self, bus_user, bus_pass, wsdl):
         Bus_SOA_Client.__init__(self, bus_user, bus_pass, wsdl)
+        self.errors = GuiaDocentPublica_Errors()
         self.CODE_OK = 0
 
     def obtenir_pdf_params(self):

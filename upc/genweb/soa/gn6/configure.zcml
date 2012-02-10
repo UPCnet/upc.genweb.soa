@@ -25,9 +25,6 @@
         class=".dadesUsuari.DadesAltaForm"
         permission="zope2.View"
    />
-   <!-- #TODO la següent página només hauria de ser visible pels
-        gestors
-    -->
    <browser:page
         for="*"
         name="gn6-helper-alta-form"
