@@ -2,6 +2,7 @@
 from Products.CMFPlone import PloneMessageFactory as _
 from upc.genweb.soa.bus import BUS_Errors, BUS_properties, Bus_SOA_Client
 from upc.genweb.soa.soaBrowserView import SOABrowserView
+import logging
 
 
 class GuiaDocentPublica_Properties(BUS_properties):
@@ -75,8 +76,10 @@ class GuiaDocentPublica(Bus_SOA_Client):
         if not self.test:
             try:
                 self.last_result = self.client.service.obtenirPDF(data['codi'], data['curs'], data['grup'], data['idioma'])
-            except:
-                pass
+            except Exception, excepcio:
+                self.last_error = self.errors.DEFAULT
+                logger = logging.getLogger('SOA')
+                logger.exception(excepcio)
         else:
             self.last_error = self.errors.TEST_OK
 

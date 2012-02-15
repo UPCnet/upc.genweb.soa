@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1 (unreleased)
+----------------
+- Guia docent publica mostra error al client en cas de que la crida al servei falli.
+- Guia docent i gn6 registren error al log en cas de que la crida al servei falli.
+
+
 1.0 (2012-02-10)
 ----------------
 - Initial release

@@ -16,10 +16,10 @@ class BUS_Errors():
 
     _descripcions = {
         BAD_REQUEST:
-        _('La crida soa no es correcte'),
+        _('La crida al servei no es correcte.'),
         TEST_OK: _("TEST: finalitzat correctament"),
         DEFAULT:
-        _('Hi ha hagut un problema inesperat amb la petició al Gestor')
+        _('Hi ha hagut un problema inesperat amb la petició al servei.')
     }
 
     def getDescription(self, code):

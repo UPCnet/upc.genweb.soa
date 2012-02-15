@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from Products.CMFPlone import PloneMessageFactory as _
 from upc.genweb.soa.bus import BUS_Errors, BUS_properties, Bus_SOA_Client
+import logging
 
 
 class GN6_Properties(BUS_properties):
@@ -151,8 +152,10 @@ class GN6_GestioTiquets(Bus_SOA_Client):
         if not self.test:
             try:
                 self.last_result = self.client.service.AltaTiquet(**data)
-            except:
+            except Exception, excepcio:
                 self.last_error = self.errors.DEFAULT
+                logger = logging.getLogger('SOA')
+                logger.exception(excepcio)
             #print self.client.last_sent().plain()
         else:
             self.last_error = self.errors.TEST_OK
