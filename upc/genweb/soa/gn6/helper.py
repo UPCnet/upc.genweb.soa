@@ -45,7 +45,7 @@ class HelperAltaView(SOABrowserView):
         # Comprovem que l'usuari té permisos d'edició a la carpeta arrel
         vista = ViewPageTemplateFile('helper.pt')
         if self.havePermissionAtRoot():
-            return vista()
+            return vista(self)
         self._redirect()
         return
 
@@ -54,4 +54,4 @@ class HelperAltaView(SOABrowserView):
         self.request = request
 
     def get_url(self):
-        return self.request["QUERY_STRING"]
+        return 'gn6-recollir-dades?'+self.request["QUERY_STRING"]
