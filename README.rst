@@ -1,39 +1,16 @@
-Introducció
-============
+UPC.Genweb.SOA
+==============
 
-Aquest paquet ofereix l'integració de difernts dels serveis SOA al Genweb.
+Aquest paquet ofereix l'integració de difernts dels serveis SOA de la UPC per al Genweb.
 
-Que ofereix
------------
+Actualment suporta la creació de tiquets al gestor de serveis i la consulta de guies docents públiques.
 
-Gestor de serveis
-+++++++++++++++++
+L'activació de cadascun dels serveis es fa sota demanda.
 
-La integració amb el Gestor de serveis integra la creació de tiquets des de el Genweb preomplint alguns camps per automàtizar el procés. Per crear els tiquets s'ofereix:
-
-- Una vista per als editors, que facilita el procés de creació dels enllaços de creació predefinits
-- Un formulari per demanar camps a l'usuari abans de crear el tiquet
-- Una vista que crea un tiquet en funció dels paràmetres d'entrada
+.. contents:: Continguts
 
 
-Guia docent pública
-+++++++++++++++++++
 
-La integració amb la Guia docent pública permet visualitzar les diferents guies docents amb el Genweb.
-
-Les guies es generen cridan a la la url relativa: **guiadocent-obtenir-pdf**, amb els paràmetres necessaris per a trobar la guia:
-
-    codi (obligatori): codi que identifica la unitat docent en qüestió
-    grup (obligatori): grup de la guia d'estudis
-    idioma (obligatori): valors posibles CA, ES, ENG
-    curs: any de la guia docent. Ex. 2009
-
-Exemples
-........
-
-:Exemple en català: guiadocent-obtenir-pdf?codi=14742&idioma=ca&grup=1
-:Exemple en castellà: guiadocent-obtenir-pdf?codi=14742&idioma=es&grup=1
-:Exemple en català i curs 2009: guiadocent-obtenir-pdf?codi=14742&idioma=ca&grup=1&curs=2009
 
 
 Configuració
@@ -63,34 +40,48 @@ Guia docent pública
 +++++++++++++++++++
 :wsdl_guiadocent: url al fitxer wsdl de la guia docent pública.
 
-Demanar accés al BUS SOA
-++++++++++++++++++++++++
+Gestor de serveis
+-----------------
 
-Les màquines que utilitzin aquest servei s'han de donar d'alta al contracte del servei web amb el Govern SOA.
+La integració amb el Gestor de serveis integra la creació de tiquets des de el Genweb preomplint alguns camps per automàtizar el procés. Per crear els tiquets s'ofereix:
+
+- Una vista per als editors, que facilita el procés de creació dels enllaços de creació predefinits i seleccionar el període en el que es podrà crear el tiquet.
+- Un formulari per demanar camps a l'usuari abans de crear el tiquet.
+- Una vista que crea un tiquet en funció dels paràmetres d'entrada.
+
+Les vistes que facilita aquesta paquet són:
+
+- Creació de l'enllaç per denamanar informació del tiquet
+
+Creació de l'enllaç per demanar informació
+++++++++++++++++++++++++++++++++++++++++++
+
+*/gn6-helper-alta-form*
+
+.. warning::
+
+    Aquesta vista només esta disponible pels usuaris amb permissos *Pot editar* a la carpeta arrel.
+
+Aquesta vista permet generar enllaços que porten al formulari de creació de tiquet, es mostra un formulari amb els camps que es poden predefinir:
+
+- Equip resolutor
+- Codi del producte o servei
+- Codi del subservei
+
+Un cop s'han entrat els camps que es volen predefinir i enviada la petició es mostrarà una pàgina amb l'enllaç que s'haurà de copiar i un exemple.
+
+.. note::
+
+    El enllaços suporten predefinir més camps de manera manual, consulteu la llista de camps predefinibles per saber més detalls.
+
+.. TODO: llista de camps
 
 
-Filtratge HTML
-++++++++++++++
-**Ús avançat i proves**
-
-Per poder afegir els enllaços utitlizan formularis cal permetre les etiquetes `form` i `input` a la configuració del *Filtratge Html*.
-
-**Proves**
-
-El formulari de proves utlitza les etiquetes `select` i `option` per generar els desplegables.
+Creació d'enllaços d'alta tiquet manuals
+++++++++++++++++++++++++++++++++++++++++
 
 
-
-Demanar informació a l'usuari
------------------------------
-
-Una de les vistes del paquet permet generar enllaços amb informació predefinida a l'hora de crear un nou tiquet.
-
-
-Generació dels enllaços per crear tiquets
------------------------------------------
-
-Per generar els enllaços per creat tiquets hi han dues opcions: `<form/>` o `<a/>`; les dues opcions porten al mateix resultat final, però cadascuna té els seus pros i contres.
+Per generar els enllaços de creació de tiquets manualment hi han dues opcions: `<form/>` o `<a/>`; les dues opcions porten al mateix resultat final, però cadascuna té els seus pros i contres.
 
 **Enllaç**
 
@@ -115,12 +106,26 @@ Per generar els enllaços per creat tiquets hi han dues opcions: `<form/>` o `<a
 - Si es vol enviar l'informació al clicar a una imatge cal javascript.
 - S'ha de modificar la configuració per defecte del Genweb.
 
+.. note::
+
+    Les modificacions al Genweb s'han de demanar.
+
 
 Code snippets
--------------
++++++++++++++
+
+Configuració extra
+..................
+**Creació d'enllaços amb formulari i proves**
+
+Per poder afegir els enllaços utitlizan formularis cal permetre les etiquetes `form` i `input` a la configuració del *Filtratge Html*.
+
+**Proves**
+
+El formulari de proves utlitza les etiquetes `select` i `option` per generar els desplegables.
 
 Enllaç
-++++++
+......
 
 Enllaç amb assumpte de prova::
 
@@ -129,7 +134,7 @@ Enllaç amb assumpte de prova::
 	</a>
 
 Formulari
-+++++++++
+.........
 
 El codi següent es un formulari que permet fer proves i generar url's valides::
 
@@ -217,3 +222,22 @@ Formulari amb els camps ocults per a proves::
 		</script>
 		<input id="servei3imatge" type="image" onclick="servei1form.submit()" src="http://seuelectronica.upc.edu/perfil-de-contractant/imatges/imatge-per-a-contacte"/>
 	</form>
+
+Guia docent pública
+-------------------
+
+La integració amb la Guia docent pública permet visualitzar les diferents guies docents amb el Genweb.
+
+Les guies es generen cridan a la la url relativa: **guiadocent-obtenir-pdf**, amb els paràmetres necessaris per a trobar la guia:
+
+    codi (obligatori): codi que identifica la unitat docent en qüestió
+    grup (obligatori): grup de la guia d'estudis
+    idioma (obligatori): valors posibles CA, ES, ENG
+    curs: any de la guia docent. Ex. 2009
+
+Exemples
+++++++++
+
+:Exemple en català: guiadocent-obtenir-pdf?codi=14742&idioma=ca&grup=1
+:Exemple en castellà: guiadocent-obtenir-pdf?codi=14742&idioma=es&grup=1
+:Exemple en català i curs 2009: guiadocent-obtenir-pdf?codi=14742&idioma=ca&grup=1&curs=2009
