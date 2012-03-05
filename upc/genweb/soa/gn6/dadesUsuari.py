@@ -18,7 +18,8 @@ class DadesAltaForm(form.Form, AltaTiquet):
         """ Make sure that return URL is not visible to the user.
         """
         if not self._get_user():
-            self.request.response.redirect('login')
+            came_from = self.request.getURL()
+            self.request.response.redirect(self.context.portal_url() + '/login?came_from=' + came_from)
             return
         form.Form.updateWidgets(self)
 

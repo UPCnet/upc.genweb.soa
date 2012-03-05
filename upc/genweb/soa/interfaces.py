@@ -45,7 +45,8 @@ class IGN6DadesAltaForm(IGN6UrlHelperForm):
 
     annexe = schema.Bytes(
                 title=_(u'Annexe'),
-                description=_(u"Fitxer que s'afegirà com annexe al tiquet")
+                description=_(u"Fitxer que s'afegirà com annexe al tiquet"),
+                required=False
                 )
 
     redirect = schema.Text(
