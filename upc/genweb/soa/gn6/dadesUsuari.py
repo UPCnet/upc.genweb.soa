@@ -3,7 +3,7 @@ from z3c.form import form, field, button, interfaces
 from upc.genweb.soa.interfaces import IGN6DadesAltaForm
 from upc.genweb.soa import SOAMessageFactory as _
 from upc.genweb.soa.gn6.altaTiquet import AltaTiquet
-
+from datetime import date
 
 class DadesAltaForm(form.Form, AltaTiquet):
 
@@ -15,14 +15,32 @@ class DadesAltaForm(form.Form, AltaTiquet):
     ignoreContext = True
 
     def updateWidgets(self):
-        """ Make sure that return URL is not visible to the user.
+        """ Ocultar camps a l'usuari final
         """
         if not self._get_user():
             came_from = self.request.getURL()
             self.request.response.redirect(self.context.portal_url() + '/login?came_from=' + came_from)
             return
+        # Validació del periode
+        if 'dataInici' in self.request.form:
+            dts = self.request.form['dataInici'].split('-')
+            dataInici = date(int(dts[0]), int(dts[1]), int(dts[2]))
+            if dataInici > date.today():
+                self.request.response.redirect(self.context.portal_url() + '/gn6-no-disponible')
+                return
+        if 'dataFi' in self.request.form:
+            dts = self.request.form['dataFi'].split('-')
+            dataFi = date(int(dts[0]), int(dts[1]), int(dts[2]))
+            if dataFi < date.today():
+                self.request.response.redirect(self.context.portal_url() + '/gn6-no-disponible')
+                return
+
         form.Form.updateWidgets(self)
 
+        self.widgets['dataInici'].mode = interfaces.HIDDEN_MODE
+        self.widgets['dataFi'].mode = interfaces.HIDDEN_MODE
+        del self.widgets['dataInici']
+        del self.widgets['dataFi']
         link_fields = ['equipResolutor', 'producte', 'subservei']
 
         for a in link_fields:

@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xml:lang="en" lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="upc.genweb.soa">
+
+    <body>
+
+        <metal:block metal:fill-slot="top_slot"
+                     tal:define="dummy python:request.set('disable_border', 1)" />
+
+        <metal:main fill-slot="main">
+            <tal:main-macro metal:define-macro="main">
+
+                <span tal:replace="structure provider:plone.abovecontenttitle" />
+
+                    <h1>Servei no disponible</h1>
+                    <p>Actualment aquest servei no esta disponible.</p>
+
+            </tal:main-macro>
+        </metal:main>
+
+    </body>
+</html>

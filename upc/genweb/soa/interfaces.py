@@ -29,6 +29,16 @@ class IGN6UrlHelperForm(Interface):
                 description=_(u"Identificador del subservei al gestor"),
                 required=False
                 )
+    dataInici = schema.Date(
+                title=_(u"Data d'inici"),
+                description=_(u"Data en la que es podrà comenaçar a solicitar el servei"),
+                required=False
+                )
+    dataFi = schema.Date(
+                title=_(u"Data fi"),
+                description=_(u"Data del darrer dia que es podrà solicitar el servei"),
+                required=False
+                )
 
 
 class IGN6DadesAltaForm(IGN6UrlHelperForm):

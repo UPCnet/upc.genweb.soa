@@ -32,7 +32,7 @@ class HelperAltaForm(form.Form, SOABrowserView):
         sep = ''
         for key in data:
             if data[key] is not None:
-                params += sep + key + "=" + data[key]
+                params += sep + key + "=" + str(data[key])
                 sep = '&'
 
         desti = 'gn6-helper-alta-view?' + params
