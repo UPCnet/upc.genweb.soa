@@ -1,7 +1,7 @@
 UPC.Genweb.SOA
 ==============
 
-Aquest paquet ofereix l'integració de difernts dels serveis SOA de la UPC per al Genweb.
+Aquest paquet ofereix la integració de diferents dels serveis SOA de la UPC per al Genweb.
 
 Actualment suporta la creació de tiquets al gestor de serveis i la consulta de guies docents públiques.
 
@@ -16,7 +16,7 @@ L'activació de cadascun dels serveis es fa sota demanda.
 Configuració
 ------------
 
-Quan s'instala el paquet per primer cop crea un full de propietats buit **soa_properties** que s'ha d'omplir per poder connectar-se al `bus SOA` i els diferents serveis, els paràmetres d'aquesta configuració basics són:
+Quan s'instal·la el paquet per primer cop crea un full de propietats buit **soa_properties** que s'ha d'omplir per poder connectar-se al `bus SOA` i els diferents serveis, els paràmetres d'aquesta configuració bàsics són:
 
 :bussoa_user: usuari del bus SOA.
 :bussoa_password: contrasenya de l'usuari del bus SOA.
@@ -43,7 +43,7 @@ Guia docent pública
 Gestor de serveis
 -----------------
 
-La integració amb el Gestor de serveis integra la creació de tiquets des de el Genweb preomplint alguns camps per automàtizar el procés. Per crear els tiquets s'ofereix:
+La integració amb el Gestor de serveis integra la creació de tiquets des de el Genweb preomplint alguns camps per automatizar el procés. Per crear els tiquets s'ofereix:
 
 - Una vista per als editors, que facilita el procés de creació dels enllaços de creació predefinits i seleccionar el període en el que es podrà crear el tiquet.
 - Un formulari per demanar camps a l'usuari abans de crear el tiquet.
@@ -51,7 +51,7 @@ La integració amb el Gestor de serveis integra la creació de tiquets des de el
 
 Les vistes que facilita aquesta paquet són:
 
-- Creació de l'enllaç per denamanar informació del tiquet
+- Creació de l'enllaç per demanar informació del tiquet
 
 Creació de l'enllaç per demanar informació
 ++++++++++++++++++++++++++++++++++++++++++
@@ -103,7 +103,7 @@ Per generar els enllaços de creació de tiquets manualment hi han dues opcions:
 
 *Contras*
 
-- Si es vol enviar l'informació al clicar a una imatge cal javascript.
+- Si es vol enviar la informació al clicar a una imatge cal javascript.
 - S'ha de modificar la configuració per defecte del Genweb.
 
 .. note::
@@ -118,11 +118,11 @@ Configuració extra
 ..................
 **Creació d'enllaços amb formulari i proves**
 
-Per poder afegir els enllaços utitlizan formularis cal permetre les etiquetes `form` i `input` a la configuració del *Filtratge Html*.
+Per poder afegir els enllaços utilitzant formularis cal permetre les etiquetes `form` i `input` a la configuració del *Filtratge Html*.
 
 **Proves**
 
-El formulari de proves utlitza les etiquetes `select` i `option` per generar els desplegables.
+El formulari de proves utilitza les etiquetes `select` i `option` per generar els desplegables.
 
 Enllaç
 ......
@@ -228,7 +228,7 @@ Guia docent pública
 
 La integració amb la Guia docent pública permet visualitzar les diferents guies docents amb el Genweb.
 
-Les guies es generen cridan a la la url relativa: **guiadocent-obtenir-pdf**, amb els paràmetres necessaris per a trobar la guia:
+Les guies es generen cridant a la la url relativa: **guiadocent-obtenir-pdf**, amb els paràmetres necessaris per a trobar la guia:
 
     codi (obligatori): codi que identifica la unitat docent en qüestió
     grup (obligatori): grup de la guia d'estudis

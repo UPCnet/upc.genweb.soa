@@ -33,7 +33,7 @@ class HelperAltaForm(form.Form, SOABrowserView):
         for key in data:
             if data[key] is not None:
                 params += sep + key + "=" + data[key]
-            sep = '&'
+                sep = '&'
 
         desti = 'gn6-helper-alta-view?' + params
         self.request.response.redirect(desti)

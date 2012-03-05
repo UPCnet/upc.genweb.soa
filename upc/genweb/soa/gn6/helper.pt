@@ -19,8 +19,8 @@
                 <span tal:replace="structure provider:plone.abovecontenttitle" />
 
                     <p>Pots provar l'enllaç 
-                        <a tal:attributes="href view/get_url" class="peticio-dades-soa">aqui</a><br/><br/></p>
-                    <p>L'enllaç apunta a:<br/>
+                        <a tal:attributes="href view/get_url" class="peticio-dades-soa">AQUÍ</a><br/><br/></p>
+                    <p>L'enllaç per crear un tiquet ha d'apuntar a:<br/>
                     <br/>
                     <big><span tal:replace="view/get_url"/></big>
                     <br/>

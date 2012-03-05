@@ -2,7 +2,7 @@
 <object name="portal_properties" meta_type="Plone Properties Tool">
 
   <object name="soa_properties" meta_type="Plone Property Sheet">
-
+    <property name="title" type="string">SOA Properties</property>
     <!-- Usuari del Bus SOA -->
     <property name="bussoa_user" type="string" purge="False"></property>
     <!-- Contrasenya del Bus SOA -->
