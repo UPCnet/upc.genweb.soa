@@ -44,7 +44,6 @@ class SOABrowserView(BrowserView):
     def _redirect(self):
         """ Redirecciona a la pàgina d'on venia l'usuari, o la pàgina anterior
         al formulari o a la pàgina principal si el camp HTTP_REFERER"""
-        #TODO provar
         if 'redirect' in self.request.form:
             redirect = self.request.form['redirect']
         else:
