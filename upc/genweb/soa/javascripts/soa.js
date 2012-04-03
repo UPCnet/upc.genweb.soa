@@ -1,7 +1,12 @@
-$(document).ready(function () {
+/*global jQuery, document*/
 
-    $('.peticio-dades-soa').prepOverlay({
-        subtype: 'ajax',
-        filter: '#content>*'
+jQuery(function ($) {
+    "use strict";
+    $(document).ready(function () {
+        $('.peticio-dades-soa').prepOverlay({
+            subtype: 'ajax',
+            filter: '#content>*'
+        });
+
     });
 });
