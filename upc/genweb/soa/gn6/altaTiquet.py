@@ -74,7 +74,7 @@ class AltaTiquet():
 
     #TODO potser seria millor cridar a l'alta a l'init
     # i amb aquest metode només obtenir el resultat
-    def alta(self, params):
+    def alta(self, params, annexe):
         gn6_prop = GN6_Properties(self.context)
         p = gn6_prop.get_all()
         # Obtenim l'usuari i comprovem l'usuari
@@ -110,7 +110,7 @@ class AltaTiquet():
         params['solicitant'] = user.getId()
 
         # Cridem a l'alta al gestor
-        t = g.alta_tiquet(params)
+        t = g.alta_tiquet(params, annexe)
 
         # Processem el retorn
         if g.resultat_ok():

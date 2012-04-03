@@ -2,7 +2,7 @@
 from Products.CMFPlone import PloneMessageFactory as _
 from upc.genweb.soa.bus import BUS_Errors, BUS_properties, Bus_SOA_Client
 import logging
-
+from base64 import b64encode
 
 class GN6_Properties(BUS_properties):
 
@@ -23,15 +23,21 @@ class GN6_Errors(BUS_Errors):
     # GN6 errors
     USER_NOT_FOUND = "-2"
     WRONG_PERMISSION = "-3"
+    WRONG_PERMISSION_2 = "-9"
+    SUBSERVEI_NOT_FOUND = "-11"
 
     def __init__(self):
         self._descripcions.update({
             # El sol·licitant no existeix
             self.USER_NOT_FOUND:
-            _("No s'ha trobat el teu usuari al Gestor de Serveis."),
+                _("No s'ha trobat el teu usuari al Gestor de Serveis."),
             # El sol·licitant no té rol de sol·licitant de tiquets en el domini
             self.WRONG_PERMISSION:
-            _("No tens permissos per crear tiquets al Gestor de Serveis.")
+                _("No tens permissos per crear tiquets al Gestor de Serveis."),
+            self.WRONG_PERMISSION_2:
+                _("No tens permissos per crear tiquets al Gestor de Serveis."),
+            self.SUBSERVEI_NOT_FOUND:
+                _("No s'ha trobat el subservei pel servei sol·licitat."),
             })
 
 
@@ -104,7 +110,7 @@ class GN6_GestioTiquets(Bus_SOA_Client):
             return self.errors.getDescription(self.last_error)
         return None
 
-    def alta_tiquet(self, params):
+    def alta_tiquet(self, params, annexe):
         """Crea un tiquet al gestor"""
         self.last_result = None
         self.last_error = None
@@ -152,6 +158,23 @@ class GN6_GestioTiquets(Bus_SOA_Client):
         if not self.test:
             try:
                 self.last_result = self.client.service.AltaTiquet(**data)
+                # si te annexe -> cridar al webservice i afegir
+                if annexe is not None and self.last_result.codiRetorn == self.CODE_OK:
+                    # Preparem les dades de l'annexe
+                    dataAnnexe = {'username': self.usuari,
+                        'password': self.password,
+                        'domini': self.domain,
+                        'codiTiquet': self.last_result.codiTiquet,
+                        'usuari': data['solicitant'],
+                        'nomFitxer': annexe['name'],
+                        'fitxerBase64': b64encode(annexe['data'])
+                    }
+                    result_annexe = self.client.service.AnnexarFitxerTiquet(**dataAnnexe)
+                    # Comprobem si s'ha afegit l'annexe
+                    if result_annexe.codiRetorn != self.CODE_OK:
+                        # Modifiquem la descripció del darrer resultat
+                        self.last_result.descripcioError = _("S'ha creat el tiquet, però no s'ha pogut afegir l'annexe.")
+
             except Exception, excepcio:
                 self.last_error = self.errors.DEFAULT
                 logger = logging.getLogger('SOA')
@@ -166,4 +189,4 @@ class GN6_GestioTiquets(Bus_SOA_Client):
         return ['solicitant', 'assumpte', 'descripcio', 'equipResolutor',
                 'assignatA', 'producte',    'urgencia', 'impacte', 'proces',
                  'procesOrigen', 'estat', 'ip', 'enviarMissatgeCreacio',
-                 'enviarMissatgeTancament', 'infraestructura']
+                 'enviarMissatgeTancament', 'infraestructura', 'subservei']

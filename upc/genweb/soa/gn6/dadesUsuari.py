@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from z3c.form import form, field, button, interfaces
+from z3c.form import form, field, button, interfaces, util
 from upc.genweb.soa.interfaces import IGN6DadesAltaForm
 from upc.genweb.soa import SOAMessageFactory as _
 from upc.genweb.soa.gn6.altaTiquet import AltaTiquet
 from datetime import date
+
 
 class DadesAltaForm(form.Form, AltaTiquet):
 
@@ -17,6 +18,7 @@ class DadesAltaForm(form.Form, AltaTiquet):
     def updateWidgets(self):
         """ Ocultar camps a l'usuari final
         """
+        # L'usuari esta identificat?
         if not self._get_user():
             came_from = self.request.getURL()
             self.request.response.redirect(self.context.portal_url() + '/login?came_from=' + came_from)
@@ -37,12 +39,12 @@ class DadesAltaForm(form.Form, AltaTiquet):
 
         form.Form.updateWidgets(self)
 
+        # Amagem alguns camps
         self.widgets['dataInici'].mode = interfaces.HIDDEN_MODE
         self.widgets['dataFi'].mode = interfaces.HIDDEN_MODE
         del self.widgets['dataInici']
         del self.widgets['dataFi']
         link_fields = ['equipResolutor', 'producte', 'subservei']
-
         for a in link_fields:
             if a in self.request.form:
                 self.widgets[a].value = self.request.form[a]
@@ -55,13 +57,27 @@ class DadesAltaForm(form.Form, AltaTiquet):
     @button.buttonAndHandler(_(u"Envia"))
     def envia(self, action):
         data, errors = self.extractData()
+
         if errors:
             self.status = self.formErrorsMessage
             return
-        result = self.alta(data)
+
+        annexe = None
+
+        # Comprovem si hi ha cap annexe
+        if data['annexe'] is not None:
+            # Obtenim el nom del fitxer i el contingut
+            annexe = {
+                'name': util.extractFileName(self, 'form-widgets-annexe'),
+                'data': data.pop('annexe')
+                }
+
+        # Cridem a l'alta
+        result = self.alta(data, annexe)
+
+        # Procesem resultats
         self.status = result['message']
         if result['code'] == self.OK:
-            #TODO a on redireccionem?
             self.context.plone_utils.addPortalMessage(result['message'],
                 'info')
             self._redirect()
