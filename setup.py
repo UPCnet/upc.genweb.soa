@@ -26,7 +26,8 @@ setup(name='upc.genweb.soa',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'suds'
+          'suds',
+          'z3c.suds'
       ],
       entry_points="""
       # -*- Entry points: -*-

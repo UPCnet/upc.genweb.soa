@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from suds.wsse import UsernameToken
 from suds.wsse import Security
-from suds.client import Client
+from z3c.suds import get_suds_client
 from Products.CMFPlone import PloneMessageFactory as _
 from Products.CMFCore.utils import getToolByName
+
 
 
 class BUS_Errors():
@@ -66,7 +67,8 @@ class Bus_SOA_Client():
 
     def __init__(self, bus_user, bus_pass, wsdl):
         # Crear client SOA amb Securitiy activat
-        self.client = Client(wsdl)
+        # Obtenim el client amb z3c.suds i no amb suds.Client
+        self.client = get_suds_client(wsdl)
         security = Security()
         token = UsernameToken(bus_user, bus_pass)
         security.tokens.append(token)
