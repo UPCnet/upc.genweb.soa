@@ -23,7 +23,7 @@ class GN6_Errors(BUS_Errors):
     # GN6 errors
     USER_NOT_FOUND = "-2"
     WRONG_PERMISSION = "-3"
-    WRONG_PERMISSION_2 = "-9"
+    WRONG_PERMISSION_2 = "-19"
     SUBSERVEI_NOT_FOUND = "-11"
 
     def __init__(self):
