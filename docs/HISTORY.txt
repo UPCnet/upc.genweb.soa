@@ -3,10 +3,12 @@ Changelog
 
 1.1 (unreleased)
 ----------------
+- L'alta de tiquet permet afegir un annexe.
+- Formulari per demanar dades a l'usuari.
+- Guia docent i gn6 registren error al log en cas de que la crida al servei falli.
 - Redirigir al formulari de login si l'usuari no s'ha identificat i vol crear un tiquet.
-- Fixed: Guia docent publica mostra error al client en cas de que la crida al servei falli.
 - Fixed: error al declarar el template de la vista helper per l'alta al gn6.
-- Guia docent i gn6 registren error al log en cas de que la crida al servei falli. 
+- Fixed: Guia docent publica mostra error al client en cas de que la crida al servei falli.
 
 1.0 (2012-02-10)
 ----------------
