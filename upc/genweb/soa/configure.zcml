@@ -21,6 +21,12 @@
         directory="javascripts"
         />
 
+    <!-- Resource directory for wsdl -->
+    <browser:resourceDirectory
+        name="upc.genweb.soa.wsdl"
+        directory="wsdl"
+        />
+
 
     <genericsetup:registerProfile
 	  name="default"

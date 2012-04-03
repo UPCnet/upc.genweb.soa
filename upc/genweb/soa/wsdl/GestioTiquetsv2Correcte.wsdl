@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:ns="http://service.psi.upcnet" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ax23="http://data.psi.upcnet/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://service.psi.upcnet">
+    <wsdl:documentation>GestioTiquetsv2</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://data.psi.upcnet/xsd">
+            <xs:complexType name="ResultatAfegirComentariTiquet">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codiRetorn" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descripcioError" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ResultatAltaTiquet">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codiRetorn" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codiTiquet" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descripcioError" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ResultatConsultaTiquets">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codiRetorn" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descripcioError" nillable="true" type="xs:string"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="llistaTiquets" nillable="true" type="ax23:Tiquet"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Tiquet">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="assignatA" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="assumpte" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="client" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codiTiquet" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="dataCreacio" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="dataTancament" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descripcio" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="equipResolutor" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="estat" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="impacte" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="ip" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="proces" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="producte" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="solicitant" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="urgencia" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ResultatModificarTiquet">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codiRetorn" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descripcioError" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema xmlns:ax24="http://data.psi.upcnet/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://service.psi.upcnet">
+            <xs:import namespace="http://data.psi.upcnet/xsd"/>
+            <xs:element name="AfegirComentariTiquet">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="domini" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="codiTiquet" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="usuari" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="descripcio" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="tipusComentari" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="esNotificat" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="destinatarisTo" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="destinatarisCc" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="destinatarisBcc" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AfegirComentariTiquetResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax24:ResultatAfegirComentariTiquet"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AltaTiquet">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="domini" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="solicitant" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="client" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="assumpte" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="descripcio" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="equipResolutor" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="assignatA" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="producte" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="subservei" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="urgencia" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="impacte" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="proces" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="procesOrigen" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="estat" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="ip" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="enviarMissatgeCreacio" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="enviarMissatgeTancament" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="imputacioAutomatica" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="infraestructura" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AltaTiquetResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax24:ResultatAltaTiquet"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ConsultaTiquets">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="domini" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="codi" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="estat" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="dataCreacioInici" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="dataCreacioFi" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="dataTancamentInici" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="dataTancamentFi" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="client" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="solicitant" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="ip" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ConsultaTiquetsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax24:ResultatConsultaTiquets"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AnnexarFitxerTiquet">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="domini" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="codiTiquet" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="usuari" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="nomFitxer" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="fitxerBase64" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AnnexarFitxerTiquetResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax24:ResultatModificarTiquet"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ModificarTiquet">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="domini" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="codiTiquet" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="equipResolutor" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="assignatA" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="proces" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="estat" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="dataCaducitat" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="codiTancament" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="producte" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="subservei" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="tipus" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="dataResol" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="solicitant" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="client" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="telefonSolicitant" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="emailSolicitant" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="dadesContacteSolicitant" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="numInventari" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="numElements" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="ip" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="assumpte" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="descripcio" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="origen" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="urgencia" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="impacte" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ModificarTiquetResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax24:ResultatModificarTiquet"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="AnnexarFitxerTiquetRequest">
+        <wsdl:part name="parameters" element="ns:AnnexarFitxerTiquet"/>
+    </wsdl:message>
+    <wsdl:message name="AnnexarFitxerTiquetResponse">
+        <wsdl:part name="parameters" element="ns:AnnexarFitxerTiquetResponse"/>
+    </wsdl:message>
+    <wsdl:message name="AfegirComentariTiquetRequest">
+        <wsdl:part name="parameters" element="ns:AfegirComentariTiquet"/>
+    </wsdl:message>
+    <wsdl:message name="AfegirComentariTiquetResponse">
+        <wsdl:part name="parameters" element="ns:AfegirComentariTiquetResponse"/>
+    </wsdl:message>
+    <wsdl:message name="ModificarTiquetRequest">
+        <wsdl:part name="parameters" element="ns:ModificarTiquet"/>
+    </wsdl:message>
+    <wsdl:message name="ModificarTiquetResponse">
+        <wsdl:part name="parameters" element="ns:ModificarTiquetResponse"/>
+    </wsdl:message>
+    <wsdl:message name="AltaTiquetRequest">
+        <wsdl:part name="parameters" element="ns:AltaTiquet"/>
+    </wsdl:message>
+    <wsdl:message name="AltaTiquetResponse">
+        <wsdl:part name="parameters" element="ns:AltaTiquetResponse"/>
+    </wsdl:message>
+    <wsdl:message name="ConsultaTiquetsRequest">
+        <wsdl:part name="parameters" element="ns:ConsultaTiquets"/>
+    </wsdl:message>
+    <wsdl:message name="ConsultaTiquetsResponse">
+        <wsdl:part name="parameters" element="ns:ConsultaTiquetsResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="GestioTiquetsv2PortType">
+        <wsdl:operation name="AnnexarFitxerTiquet">
+            <wsdl:input message="ns:AnnexarFitxerTiquetRequest" wsaw:Action="urn:AnnexarFitxerTiquet"/>
+            <wsdl:output message="ns:AnnexarFitxerTiquetResponse" wsaw:Action="urn:AnnexarFitxerTiquetResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="AfegirComentariTiquet">
+            <wsdl:input message="ns:AfegirComentariTiquetRequest" wsaw:Action="urn:AfegirComentariTiquet"/>
+            <wsdl:output message="ns:AfegirComentariTiquetResponse" wsaw:Action="urn:AfegirComentariTiquetResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ModificarTiquet">
+            <wsdl:input message="ns:ModificarTiquetRequest" wsaw:Action="urn:ModificarTiquet"/>
+            <wsdl:output message="ns:ModificarTiquetResponse" wsaw:Action="urn:ModificarTiquetResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="AltaTiquet">
+            <wsdl:input message="ns:AltaTiquetRequest" wsaw:Action="urn:AltaTiquet"/>
+            <wsdl:output message="ns:AltaTiquetResponse" wsaw:Action="urn:AltaTiquetResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ConsultaTiquets">
+            <wsdl:input message="ns:ConsultaTiquetsRequest" wsaw:Action="urn:ConsultaTiquets"/>
+            <wsdl:output message="ns:ConsultaTiquetsResponse" wsaw:Action="urn:ConsultaTiquetsResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="GestioTiquetsv2Soap11Binding" type="ns:GestioTiquetsv2PortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="AnnexarFitxerTiquet">
+            <soap:operation soapAction="urn:AnnexarFitxerTiquet" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="AfegirComentariTiquet">
+            <soap:operation soapAction="urn:AfegirComentariTiquet" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ModificarTiquet">
+            <soap:operation soapAction="urn:ModificarTiquet" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="AltaTiquet">
+            <soap:operation soapAction="urn:AltaTiquet" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ConsultaTiquets">
+            <soap:operation soapAction="urn:ConsultaTiquets" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="GestioTiquetsv2">
+        <wsdl:port name="GestioTiquetsv2HttpSoap11Endpoint" binding="ns:GestioTiquetsv2Soap11Binding">
+            <soap:address location="https://147.83.194.105:8444/axis2/services/GestioTiquetsv2.GestioTiquetsv2HttpSoap11Endpoint/"/>
+        </wsdl:port>
+
+    </wsdl:service>
+</wsdl:definitions>
