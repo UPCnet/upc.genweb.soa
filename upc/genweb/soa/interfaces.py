@@ -22,7 +22,8 @@ class IGN6UrlHelperForm(Interface):
                 )
     producte = schema.TextLine(
                 title=_(u"Codi del producte/servei"),
-                description=_(u"Identificador del producte/servei al gestor")
+                description=_(u"Identificador del producte/servei al gestor"),
+                required=False
                 )
     subservei = schema.TextLine(
                 title=_(u"Codi del subservei"),
