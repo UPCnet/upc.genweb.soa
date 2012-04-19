@@ -28,7 +28,7 @@
    <browser:page
         for="*"
         name="gn6-no-disponible"
-        template="nodisponible.pt"
+        class=".noDisponible.NoDisponibleView"
         permission="zope2.View"
    />
    <browser:page

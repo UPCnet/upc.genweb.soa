@@ -8,12 +8,42 @@ from datetime import date
 
 class DadesAltaForm(form.Form, AltaTiquet):
 
+    #Routa de la pàgina de servei no disponible (mirar configure.zml)
+    NO_DISPONIBLE = '/gn6-no-disponible'
+
     fields = field.Fields(IGN6DadesAltaForm)
     # Aquet formulari no té titol (label)
     label = _(u"Creació d'un nou tiquet")
     description = _(u"Omple els camps amb la informació del tiquet.")
 
     ignoreContext = True
+
+    def _getDateFromImputOrToday(self, id):
+        """ Obte el paremetre id de la petició i el tracta com una data separada
+         per '-', tal com la retorna z3c.form. Si no troba el parametre et retornar
+         el valor per defecte z3c
+         """
+        if id in self.request.form:
+            dts = self.request.form[id].split('-')
+            data = date(int(dts[0]), int(dts[1]), int(dts[2]))
+        else:
+            data = date.today()
+        return data
+
+    def _getUriNoDisponible(self):
+        uri = self.context.portal_url() + self.NO_DISPONIBLE
+        # Volem filtrar els parametres de la petició i obtenir només les dates
+        param_list = ['dataInici', 'dataFi']
+        params = []
+        for param in param_list:
+            if param in self.request.form:
+                params.append(param + '=' + self.request.form[param])
+        # Unim els parametres de la llista amb &
+        params = '&'.join(params)
+        # Si hi havia algun parametre els afegim a la uri
+        if params != '':
+            uri += '?' + params
+        return uri
 
     def updateWidgets(self):
         """ Ocultar camps a l'usuari final
@@ -24,19 +54,12 @@ class DadesAltaForm(form.Form, AltaTiquet):
             self.request.response.redirect(self.context.portal_url() + '/login?came_from=' + came_from)
             return
         # Validació del periode
-        if 'dataInici' in self.request.form:
-            dts = self.request.form['dataInici'].split('-')
-            dataInici = date(int(dts[0]), int(dts[1]), int(dts[2]))
-            if dataInici > date.today():
-                self.request.response.redirect(self.context.portal_url() + '/gn6-no-disponible')
-                return
-        if 'dataFi' in self.request.form:
-            dts = self.request.form['dataFi'].split('-')
-            dataFi = date(int(dts[0]), int(dts[1]), int(dts[2]))
-            if dataFi < date.today():
-                self.request.response.redirect(self.context.portal_url() + '/gn6-no-disponible')
-                return
-
+        dataInici = self._getDateFromImputOrToday('dataInici')
+        dataFi = self._getDateFromImputOrToday('dataFi')
+        if dataInici > date.today() or dataFi < date.today():
+            # Redirigim a la pàgina no disponible
+            self.request.response.redirect(self._getUriNoDisponible())
+            return
         form.Form.updateWidgets(self)
 
         # Amagem alguns camps

@@ -16,8 +16,8 @@
 
                 <span tal:replace="structure provider:plone.abovecontenttitle" />
 
-                    <h1>Servei no disponible</h1>
-                    <p>Actualment aquest servei no esta disponible.</p>
+                    <h1 i18n:translate="">Servei no disponible</h1>
+                    <p tal:content="view/message">Missatge</p>
 
             </tal:main-macro>
         </metal:main>

@@ -18,29 +18,6 @@ class GN6_Properties(BUS_properties):
         BUS_properties.__init__(self, site)
 
 
-class GN6_Errors(BUS_Errors):
-
-    # GN6 errors
-    USER_NOT_FOUND = "-2"
-    WRONG_PERMISSION = "-3"
-    WRONG_PERMISSION_2 = "-19"
-    SUBSERVEI_NOT_FOUND = "-11"
-
-    def __init__(self):
-        self._descripcions.update({
-            # El sol·licitant no existeix
-            self.USER_NOT_FOUND:
-                _("No s'ha trobat el teu usuari al Gestor de Serveis."),
-            # El sol·licitant no té rol de sol·licitant de tiquets en el domini
-            self.WRONG_PERMISSION:
-                _("No tens permissos per crear tiquets al Gestor de Serveis."),
-            self.WRONG_PERMISSION_2:
-                _("No tens permissos per crear tiquets al Gestor de Serveis."),
-            self.SUBSERVEI_NOT_FOUND:
-                _("No s'ha trobat el subservei pel servei sol·licitat."),
-            })
-
-
 class GN6_GestioTiquets(Bus_SOA_Client):
 
     # Diccionaris amb valors posibles
@@ -83,7 +60,7 @@ class GN6_GestioTiquets(Bus_SOA_Client):
         """Inciialització del client"""
         Bus_SOA_Client.__init__(self, bus_user, bus_pass, wsdl)
         # Gestor d'errors
-        self.errors = GN6_Errors()
+        self.errors = BUS_Errors()
         # Desar variables per fer servir més tard
         self.usuari = gn6_user
         self.password = gn6_pass
@@ -104,8 +81,8 @@ class GN6_GestioTiquets(Bus_SOA_Client):
         # Comprobem la darrera petició si s'ha cridad correctament
         if self.last_result is not None:
             if self.last_result.codiRetorn != self.CODE_OK:
-                return self.errors.getDescription(self.last_result.codiRetorn)
-        # Comprobem si la darrera petició no s'ha arribat a cridar
+                return self.errors.getDescription(self.last_result.codiRetorn, self.last_result.descripcioError)
+        # Comprobem si la darrera petició no s'ha arribat a cridar, l'error és pre-ws
         elif self.last_error is not None:
             return self.errors.getDescription(self.last_error)
         return None
@@ -173,7 +150,7 @@ class GN6_GestioTiquets(Bus_SOA_Client):
                     # Comprobem si s'ha afegit l'annexe
                     if result_annexe.codiRetorn != self.CODE_OK:
                         # Modifiquem la descripció del darrer resultat
-                        self.last_result.descripcioError = _("S'ha creat el tiquet, però no s'ha pogut afegir l'annexe.")
+                        self.last_result.descripcioError = _("S'ha creat el tiquet, però no s'ha pogut afegir l'annexe") + " (" + self.result_annexe.descripcioError + ")"
 
             except Exception, excepcio:
                 self.last_error = self.errors.DEFAULT

@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.2 (unreleased)
+----------------
+- Millores a la gestió d'errors.
+- Millores a la vista de sol·licitud al servei no disponible del GN6.
+
 1.1 (2012-04-04)
 ----------------
 - L'alta de tiquet permet afegir un annexe.

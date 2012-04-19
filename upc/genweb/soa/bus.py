@@ -20,16 +20,20 @@ class BUS_Errors():
         _('La crida al servei no es correcte.'),
         TEST_OK: _("TEST: finalitzat correctament"),
         DEFAULT:
-        _('Hi ha hagut un problema inesperat amb la petició al servei.')
+        _('Hi ha hagut un problema amb la petició al servei')
     }
 
-    def getDescription(self, code):
+    def getDescription(self, code, extra):
         # Busquem la descripcio
         if code in self._descripcions:
             return self._descripcions[code]
         # No coneixem el codi d'error
         else:
-            return self._descripcions[self.DEFAULT]
+            if not extra:
+                extra = ''
+            else:
+                extra = ": " + extra + ' (' + code + ')'
+            return self._descripcions[self.DEFAULT] + extra
 
 
 class BUS_properties():
