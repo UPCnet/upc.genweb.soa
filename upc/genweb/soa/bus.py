@@ -23,7 +23,7 @@ class BUS_Errors():
         _('Hi ha hagut un problema amb la petició')
     }
 
-    def getDescription(self, code, extra):
+    def getDescription(self, code, extra = None):
         # Busquem la descripcio
         if code in self._descripcions:
             return self._descripcions[code]
