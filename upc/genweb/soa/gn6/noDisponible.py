@@ -30,6 +30,6 @@ class NoDisponibleView(BrowserView):
             return _("El termini per realitzar sol·licituds per aquesta prestació comença el ${dataInici}.",
                 mapping={"dataInici": dataInici})
         elif dataFi:
-            return _("El termini per realitzar sol·licituds per aquesta prestació va acabar el ${dataFi}.",
+            return _("El termini per realitzar sol·licituds per aquesta prestació va finalitzar el ${dataFi}.",
                 mapping={"dataFi": dataFi})
         return _('No es poden realitzar sol·licituds per aquesta prestació.')

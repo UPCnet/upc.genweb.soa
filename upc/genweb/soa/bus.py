@@ -20,7 +20,7 @@ class BUS_Errors():
         _('La crida al servei no es correcte.'),
         TEST_OK: _("TEST: finalitzat correctament"),
         DEFAULT:
-        _('Hi ha hagut un problema amb la petició al servei')
+        _('Hi ha hagut un problema amb la petició')
     }
 
     def getDescription(self, code, extra):
