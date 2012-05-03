@@ -129,8 +129,9 @@ class GN6_GestioTiquets(Bus_SOA_Client):
         data['username'] = self.usuari
         data['password'] = self.password
         data['domini'] = self.domain
-        #TODO fixar l'identificador del client
-        data['client'] = ''
+        data['client'] = ''  # TODO fixar l'identificador del client
+        # Valors per defectes
+        data['enviarMissatgeCreacio'] = "S"
         # Crida al servei SOA
         if not self.test:
             try:

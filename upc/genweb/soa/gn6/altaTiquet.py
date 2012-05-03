@@ -114,7 +114,8 @@ class AltaTiquet():
 
         # Processem el retorn
         if g.resultat_ok():
-            missatge = _("S'ha creat un tiquet amb identificador ${codi}",
+            # TODO millora el nom del gestor com a propietat del lloc.
+            missatge = _("A partir d'aquesta sol·licitud s'ha creat un nou tiquet al gestor e-serveiscbl amb el núm. ${codi}",
              mapping={'codi': t.codiTiquet})
             return self._status(missatge, self.OK)
         else:

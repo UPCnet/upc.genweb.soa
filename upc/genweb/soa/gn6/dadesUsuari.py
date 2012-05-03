@@ -13,8 +13,9 @@ class DadesAltaForm(form.Form, AltaTiquet):
 
     fields = field.Fields(IGN6DadesAltaForm)
     # Aquet formulari no té titol (label)
-    label = _(u"Creació d'un nou tiquet")
-    description = _(u"Omple els camps amb la informació del tiquet.")
+    label = _(u"Creació d'una nova sol·licitud")
+    # TODO millora: desar el nom del gestor en una property
+    description = _(u"Omple els camps amb la informació de la sol·licitud. A partir d'aquesta és crearà un nou tiquet al gestor e-serveiscbl")
 
     ignoreContext = True
 
