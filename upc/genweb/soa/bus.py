@@ -6,7 +6,6 @@ from Products.CMFPlone import PloneMessageFactory as _
 from Products.CMFCore.utils import getToolByName
 
 
-
 class BUS_Errors():
 
     DEFAULT = 'default'
@@ -20,10 +19,10 @@ class BUS_Errors():
         _('La crida al servei no es correcte.'),
         TEST_OK: _("TEST: finalitzat correctament"),
         DEFAULT:
-        _('Hi ha hagut un problema amb la petició')
+        _(u'Hi ha hagut un problema amb la petició')
     }
 
-    def getDescription(self, code, extra = None):
+    def getDescription(self, code, extra=None):
         # Busquem la descripcio
         if code in self._descripcions:
             return self._descripcions[code]
