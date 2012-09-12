@@ -69,9 +69,9 @@ class GuiaDocentPublica(Bus_SOA_Client):
                 return None
             else:
                 data[a] = ''
-
-        if data['codi'] != '':
-            data['codi'] = int(data['codi'])
+        # Comentem aquesta linia ja que el parametre codi, a vegades inclou lletres... (ex: 820011A)
+        #if data['codi'] != '':
+        #    data['codi'] = int(data['codi'])
 
         if not self.test:
             try:
