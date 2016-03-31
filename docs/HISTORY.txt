@@ -13,16 +13,16 @@ Changelog
 ----------------
 - update to 1.4 [Roberto Diaz]
 - enable letter in code param [Roberto Diaz]
-- fix unicode error [Víctor Fernández de Alba]
+- fix unicode error [Victor Fernandez de Alba]
 - docs/HISTORY.txt [Carles Bruguera]
 
 1.3 (2012-07-20)
 ----------------
-- Afegir barra de progrés placebo al enviar
+- Afegir barra de progres placebo al enviar
 
 1.2 (2012-05-03)
 ----------------
-- Millores a la gestió d'errors.
+- Millores a la gestio d'errors.
 - Millores a la vista de sol·licitud al servei no disponible del GN6.
 
 1.1 (2012-04-04)
