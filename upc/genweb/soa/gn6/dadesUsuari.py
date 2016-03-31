@@ -95,7 +95,6 @@ class DadesAltaForm(form.Form, AltaTiquet):
                 'name': util.extractFileName(self, 'form-widgets-annexe'),
                 'data': data.pop('annexe')
                 }
-
         # Cridem a l'alta
         result = self.alta(data, annexe)
 

@@ -111,12 +111,10 @@ class AltaTiquet():
 
         # Cridem a l'alta al gestor
         t = g.alta_tiquet(params, annexe)
-
         # Processem el retorn
         if g.resultat_ok():
             # TODO millora el nom del gestor com a propietat del lloc.
-            missatge = _("A partir d'aquesta sol·licitud s'ha creat un nou tiquet al gestor e-serveiscbl amb el núm. ${codi}",
-             mapping={'codi': t.codiTiquet})
+            missatge = _(u"A partir d'aquesta sol·licitud s'ha creat un nou tiquet al gestor e-serveiscbl amb el núm. ${codi}", mapping={'codi': t.codiTiquet})
             return self._status(missatge, self.OK)
         else:
             missatge = g.ultim_error()
@@ -134,8 +132,7 @@ class AltaTiquetView(AltaTiquet, BrowserView):
     def alta(self):
         result = AltaTiquet.alta(self, self.request.form)
         if result['code'] == 1:
-            self.context.plone_utils.addPortalMessage(result['message'],
-                    'info')
+            self.context.plone_utils.addPortalMessage(result['message'], 'info')
             self._redirect()
         else:
             self._error(result['message'])
