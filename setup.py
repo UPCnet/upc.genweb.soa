@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.4'
+version = '1.5'
 
 setup(name='upc.genweb.soa',
       version=version,
