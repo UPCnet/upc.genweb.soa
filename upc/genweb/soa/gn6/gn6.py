@@ -4,16 +4,17 @@ from upc.genweb.soa.bus import BUS_Errors, BUS_properties, Bus_SOA_Client
 import logging
 from base64 import b64encode
 
+
 class GN6_Properties(BUS_properties):
 
     def __init__(self, site):
 
         self.expected_properties.extend([
-                            'gn6_user',
-                            'gn6_password',
-                            'gn6_domain',
-                            'wsdl_gestiotiquets'
-                        ])
+            'gn6_user',
+            'gn6_password',
+            'gn6_domain',
+            'wsdl_gestiotiquets'
+            ])
         # Inicialitzem el pare
         BUS_properties.__init__(self, site)
 
@@ -23,28 +24,28 @@ class GN6_GestioTiquets(Bus_SOA_Client):
     # Diccionaris amb valors posibles
     # Gravetat del tiquet
     _dic_gravetats = {'baixa': 'GRAVETAT_BAIXA',
-                        'mitja': 'GRAVETAT_MITJA',
-                        'alta': 'GRAVETAT_ALTA'}
+                      'mitja': 'GRAVETAT_MITJA',
+                      'alta': 'GRAVETAT_ALTA'}
     # Proces i proces origen
     _dic_processos = {'aus': 'PROCES_AUS',
-                        'rin': 'PROCES_RIN',
-                        'pti': 'PROCES_PTI',
-                        'ads': 'PROCES_ADS',
-                        'adm': 'PROCES_ADM',
-                        'dso': 'PROCES_DSO',
-                        'fcl': 'PROCES_FCL',
-                        'aid': 'PROCES_AID',
-                        'apv': 'PROCES_APV'}
+                      'rin': 'PROCES_RIN',
+                      'pti': 'PROCES_PTI',
+                      'ads': 'PROCES_ADS',
+                      'adm': 'PROCES_ADM',
+                      'dso': 'PROCES_DSO',
+                      'fcl': 'PROCES_FCL',
+                      'aid': 'PROCES_AID',
+                      'apv': 'PROCES_APV'}
 
     _dic_processos_origen = {'aus': 'PROCES_AUS',
-                        'ads': 'PROCES_ADS',
-                        'aid': 'PROCES_AID',
-                        'apv': 'PROCES_APV'
-                        }
+                             'ads': 'PROCES_ADS',
+                             'aid': 'PROCES_AID',
+                             'apv': 'PROCES_APV'
+                             }
     # Estat
     _dic_estats = {'obert': 'TIQUET_STATUS_OBERT',
-                    'pendent': 'TIQUET_STATUS_PEND',
-                    'tancat': 'TIQUET_STATUS_TANCAT'}
+                   'pendent': 'TIQUET_STATUS_PEND',
+                   'tancat': 'TIQUET_STATUS_TANCAT'}
     # Impacte
     _dic_impacte = {'baix': 'II_BAIX', 'alt': 'II_ALT'}
 
@@ -140,18 +141,18 @@ class GN6_GestioTiquets(Bus_SOA_Client):
                 if annexe is not None and self.last_result.codiRetorn == self.CODE_OK:
                     # Preparem les dades de l'annexe
                     dataAnnexe = {'username': self.usuari,
-                        'password': self.password,
-                        'domini': self.domain,
-                        'codiTiquet': self.last_result.codiTiquet,
-                        'usuari': data['solicitant'],
-                        'nomFitxer': annexe['name'],
-                        'fitxerBase64': b64encode(annexe['data'])
-                    }
+                                  'password': self.password,
+                                  'domini': self.domain,
+                                  'codiTiquet': self.last_result.codiTiquet,
+                                  'usuari': data['solicitant'],
+                                  'nomFitxer': annexe['name'],
+                                  'fitxerBase64': b64encode(annexe['data'])
+                                  }
                     result_annexe = self.client.service.AnnexarFitxerTiquet(**dataAnnexe)
                     # Comprobem si s'ha afegit l'annexe
                     if result_annexe.codiRetorn != self.CODE_OK:
                         # Modifiquem la descripció del darrer resultat
-                        self.last_result.descripcioError = _("S'ha creat el tiquet, però no s'ha pogut afegir l'annexe") + " (" + self.result_annexe.descripcioError + ")"
+                        self.last_result.descripcioError = _(u"S'ha creat el tiquet, però no s'ha pogut afegir l'annexe") + " (" + self.result_annexe.descripcioError + ")"
 
             except Exception, excepcio:
                 self.last_error = self.errors.DEFAULT
@@ -166,5 +167,5 @@ class GN6_GestioTiquets(Bus_SOA_Client):
     def alta_params(self):
         return ['solicitant', 'assumpte', 'descripcio', 'equipResolutor',
                 'assignatA', 'producte',    'urgencia', 'impacte', 'proces',
-                 'procesOrigen', 'estat', 'ip', 'enviarMissatgeCreacio',
-                 'enviarMissatgeTancament', 'infraestructura', 'subservei']
+                'procesOrigen', 'estat', 'ip', 'enviarMissatgeCreacio',
+                'enviarMissatgeTancament', 'infraestructura', 'subservei']

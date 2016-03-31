@@ -24,12 +24,12 @@ class NoDisponibleView(BrowserView):
             dataFi = self.context.toLocalizedTime(dataFi)
 
         if dataInici and dataFi:
-            return _("El termini per realitzar sol·licituds per aquesta prestació és del $dataInici al ${dataFi}.",
-                mapping={"dataFi": dataFi, "dataInici": dataInici})
+            return _(u"El termini per realitzar sol·licituds per aquesta prestació és del $dataInici al ${dataFi}.",
+                     mapping={"dataFi": dataFi, "dataInici": dataInici})
         elif dataInici and not dataFi:
-            return _("El termini per realitzar sol·licituds per aquesta prestació comença el ${dataInici}.",
-                mapping={"dataInici": dataInici})
+            return _(u"El termini per realitzar sol·licituds per aquesta prestació comença el ${dataInici}.",
+                     mapping={"dataInici": dataInici})
         elif dataFi:
-            return _("El termini per realitzar sol·licituds per aquesta prestació va finalitzar el ${dataFi}.",
-                mapping={"dataFi": dataFi})
-        return _('No es poden realitzar sol·licituds per aquesta prestació.')
+            return _(u"El termini per realitzar sol·licituds per aquesta prestació va finalitzar el ${dataFi}.",
+                     mapping={"dataFi": dataFi})
+        return _(u'No es poden realitzar sol·licituds per aquesta prestació.')

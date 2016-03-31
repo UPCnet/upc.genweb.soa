@@ -19,7 +19,7 @@ class HelperAltaForm(form.Form, SOABrowserView):
         # Comprovem que l'usuari té permisos d'edició a la carpeta arrel
         form.Form.updateWidgets(self)
         if not self.havePermissionAtRoot():
-            self._error(_('No tens permissos per accedir aquest recurs'))
+            self._error(_(u'No tens permissos per accedir aquest recurs'))
             self._redirect()
 
     @button.buttonAndHandler(_(u"Crea l'enllaç"))

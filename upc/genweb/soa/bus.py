@@ -16,8 +16,8 @@ class BUS_Errors():
 
     _descripcions = {
         BAD_REQUEST:
-        _('La crida al servei no es correcte.'),
-        TEST_OK: _("TEST: finalitzat correctament"),
+        _(u'La crida al servei no es correcte.'),
+        TEST_OK: _(u"TEST: finalitzat correctament"),
         DEFAULT:
         _(u'Hi ha hagut un problema amb la petició')
     }
@@ -40,8 +40,7 @@ class BUS_properties():
     expected_properties = ['bussoa_user', 'bussoa_password']
 
     def __init__(self, site):
-        self.properties = getToolByName(site,
-                                'portal_properties').soa_properties
+        self.properties = getToolByName(site, 'portal_properties').soa_properties
         ## Crear propietats per defecte si no existeixen
         #self._init_properties()
 

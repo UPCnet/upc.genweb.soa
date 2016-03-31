@@ -101,7 +101,6 @@ class DadesAltaForm(form.Form, AltaTiquet):
         # Procesem resultats
         self.status = result['message']
         if result['code'] == self.OK:
-            self.context.plone_utils.addPortalMessage(result['message'],
-                'info')
+            self.context.plone_utils.addPortalMessage(result['message'], 'info')
             self._redirect()
             return ''

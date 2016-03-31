@@ -80,12 +80,12 @@ class AltaTiquet():
         # Obtenim l'usuari i comprovem l'usuari
         user = self._get_user()
         if user is None:
-            return self._status(_('Permissos insuficients'), self.ERROR)
+            return self._status(_(u'Permissos insuficients'), self.ERROR)
 
         # Comprovem que el GW estigui configurat per treballar amb el GN6
         if p['gn6_user'] == '':
-            return self._status(_("No s'ha configurat el Gestor de Serveis",
-                    self.ERROR))
+            return self._status(_(u"No s'ha configurat el Gestor de Serveis",
+                                self.ERROR))
 
         g = GN6_GestioTiquets(
             p['gn6_user'], p['gn6_password'], p['gn6_domain'],

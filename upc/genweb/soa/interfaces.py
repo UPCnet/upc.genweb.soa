@@ -16,51 +16,49 @@ class IGN6UrlHelperForm(Interface):
     """Define the fields for the link builder form"""
 
     equipResolutor = schema.TextLine(
-                title=_(u"Equip resolutor"),
-                description=_(u"Equip encarregat de resoldre el tiquet."),
-                required=False
-                )
+        title=_(u"Equip resolutor"),
+        description=_(u"Equip encarregat de resoldre el tiquet."),
+        required=False
+        )
     producte = schema.TextLine(
-                title=_(u"Codi del producte/servei"),
-                description=_(u"Identificador del producte/servei al gestor."),
-                required=False
-                )
+        title=_(u"Codi del producte/servei"),
+        description=_(u"Identificador del producte/servei al gestor."),
+        required=False
+        )
     subservei = schema.TextLine(
-                title=_(u"Codi del subservei"),
-                description=_(u"Identificador del subservei al gestor."),
-                required=False
-                )
+        title=_(u"Codi del subservei"),
+        description=_(u"Identificador del subservei al gestor."),
+        required=False
+        )
     dataInici = schema.Date(
-                title=_(u"Data d'inici"),
-                description=_(u"Data en la que es podrà comenaçar a sol·licitar el servei."),
-                required=False
-                )
+        title=_(u"Data d'inici"),
+        description=_(u"Data en la que es podrà comenaçar a sol·licitar el servei."),
+        required=False
+        )
     dataFi = schema.Date(
-                title=_(u"Data fi"),
-                description=_(u"Data del darrer dia que es podrà sol·licitar el servei."),
-                required=False
-                )
+        title=_(u"Data fi"),
+        description=_(u"Data del darrer dia que es podrà sol·licitar el servei."),
+        required=False
+        )
 
 
 class IGN6DadesAltaForm(IGN6UrlHelperForm):
     """Define the fields where the user inputs the contents for a new tiquet"""
 
     assumpte = schema.TextLine(
-                title=_(u"Assumpte"),
-                description=_(u"Descripció curta de la raó de la sol·licitud."),
-                )
+        title=_(u"Assumpte"),
+        description=_(u"Descripció curta de la raó de la sol·licitud."),
+        )
     descripcio = schema.Text(
-                title=_(u"Descripció"),
-                description=_(u"Descripció detallada de la raó de la sol·licitud.")
-                )
-
+        title=_(u"Descripció"),
+        description=_(u"Descripció detallada de la raó de la sol·licitud.")
+        )
     annexe = schema.Bytes(
-                title=_(u'Annexe'),
-                description=_(u"Fitxer que s'afegirà com annexe a la sol·licitud. Podreu annexar més arxius, un cop creat el tiquet, des del gestor e-serveiscbl."),
-                required=False
-                )
-
+        title=_(u'Annexe'),
+        description=_(u"Fitxer que s'afegirà com annexe a la sol·licitud. Podreu annexar més arxius, un cop creat el tiquet, des del gestor e-serveiscbl."),
+        required=False
+        )
     redirect = schema.Text(
-                title=_(u"Redirect"),
-                description=_(u"Url a la que es retornarà en cas d'èxit.")
-                )
+        title=_(u"Redirect"),
+        description=_(u"Url a la que es retornarà en cas d'èxit.")
+        )

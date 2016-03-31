@@ -8,9 +8,7 @@ import logging
 class GuiaDocentPublica_Properties(BUS_properties):
 
     def __init__(self, site):
-        self.expected_properties.extend([
-                            'wsdl_guiadocentpublica'
-                        ])
+        self.expected_properties.extend(['wsdl_guiadocentpublica'])
         # Inicialitzem el pare
         BUS_properties.__init__(self, site)
 
@@ -21,8 +19,7 @@ class GuiaDocentPublica_Errors(BUS_Errors):
 
     def __init__(self):
         self._descripcions.update({
-            self.ERROR:
-            _("Hi ha hagut un error")
+            self.ERROR: _(u"Hi ha hagut un error")
             })
 
 
@@ -102,12 +99,12 @@ class ObtenirPDFView(SOABrowserView):
 
         # Comprovem que el GW estigui configurat per treballar amb el GN6
         if p['wsdl_guiadocentpublica'] == '':
-            self._error(_("No s'ha configurat el servei guia docent"))
+            self._error(_(u"No s'ha configurat el servei guia docent"))
             return
 
         g = GuiaDocentPublica(p['bussoa_user'],
-                p['bussoa_password'],
-                p['wsdl_guiadocentpublica'])
+                              p['bussoa_password'],
+                              p['wsdl_guiadocentpublica'])
 
         # Obtenim els parametres de la petició
         f = self.request.form
@@ -123,7 +120,7 @@ class ObtenirPDFView(SOABrowserView):
         pdf = ''
         if g.resultat_ok():
             pdf = t.PDF
-            missatge = "Crida correcte"
+            missatge = _(u"Crida correcte")
             self.request.response.setHeader("Content-type", "application/pdf")
             return pdf
         else:

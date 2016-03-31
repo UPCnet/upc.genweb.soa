@@ -64,7 +64,7 @@ class SOABrowserView(BrowserView):
 
         pm = getToolByName(self, 'portal_membership')
         tools = getMultiAdapter((self.context, self.request),
-                                    name=u'plone_tools')
+                                name=u'plone_tools')
         proot = tools.url().getPortalObject()
         sm = getSecurityManager()
         user = pm.getAuthenticatedMember()
